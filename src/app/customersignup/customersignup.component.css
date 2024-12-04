@@ -1,0 +1,36 @@
+
+.btn-gradient {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    color: white;
+    border: none;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(45deg, #feb47b, #ff7e5f);
+    color: #fff;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+}
+
+.form-control {
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+}
+
+h3 {
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.mainsignin {
+    background: linear-gradient(135deg, #fafafa, #b4b488);
+}
+

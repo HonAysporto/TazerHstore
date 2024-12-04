@@ -1,0 +1,28 @@
+.accountimg {
+    width: 20px;
+   color: black;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    margin-top: 0px;
+}
+
+.product-image {
+    height: 200px;       
+    width: 100%;         
+    object-fit: cover;   
+  }
+
+  .description-line-clamp {
+    display: -webkit-box;          /* Enables multi-line truncation */
+    -webkit-box-orient: vertical;  /* Vertical orientation for the box */
+    -webkit-line-clamp: 3;         /* Number of lines to display */
+    overflow: hidden;              /* Hide the overflowing content */
+    text-overflow: ellipsis;       /* Add ellipsis (...) for truncated text */
+    height: 75px;                  /* Ensure enough space for the clamped text */
+  }
+  
