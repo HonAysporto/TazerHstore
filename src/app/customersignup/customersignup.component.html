@@ -12,24 +12,118 @@
             <div class="container">
                 <div class="mx-auto  py-5 px-3 p-lg-5 shadow-lg rounded-5">
                     <h3 class="text-center text-primary mb-4 font-weight-bold">Create an Account</h3>
-                    <form>
+                    <form [formGroup]="formone">
+                        <!-- First Name -->
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="First Name" class="form-control form-control-lg border-primary shadow-none" required>
+                          <input 
+                            type="text" 
+                            placeholder="First Name" 
+                            class="form-control form-control-lg shadow-none" 
+                            formControlName="fname" 
+                            name="firstname" 
+                            [ngClass]="{
+                              'is-valid': formone.get('fname')?.valid && formone.get('fname')?.touched,
+                              'is-invalid': formone.get('fname')?.invalid && formone.get('fname')?.touched
+                            }">
+                          <div class="invalid-feedback" *ngIf="formone.get('fname')?.invalid && formone.get('fname')?.touched">
+                            First name is required.
+                          </div>
                         </div>
+                      
+                        <!-- Last Name -->
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="Last Name" class="form-control form-control-lg border-primary shadow-none" required>
+                          <input 
+                            type="text" 
+                            placeholder="Last Name" 
+                            class="form-control form-control-lg shadow-none" 
+                            formControlName="lname" 
+                            name="lastname" 
+                            [ngClass]="{
+                              'is-valid': formone.get('lname')?.valid && formone.get('lname')?.touched,
+                              'is-invalid': formone.get('lname')?.invalid && formone.get('lname')?.touched
+                            }">
+                          <div class="invalid-feedback" *ngIf="formone.get('lname')?.invalid && formone.get('lname')?.touched">
+                            Last name is required.
+                          </div>
                         </div>
+                      
+                        <!-- Email -->
                         <div class="form-group mb-3">
-                            <input type="email" placeholder="Email" class="form-control form-control-lg border-primary shadow-none" required>
+                          <input 
+                            type="email" 
+                            placeholder="Email" 
+                            class="form-control form-control-lg shadow-none" 
+                            formControlName="email" 
+                            name="email" 
+                            [ngClass]="{
+                              'is-valid': formone.get('email')?.valid && formone.get('email')?.touched,
+                              'is-invalid': formone.get('email')?.invalid && formone.get('email')?.touched
+                            }">
+                          <div class="invalid-feedback" *ngIf="formone.get('email')?.invalid && formone.get('email')?.touched">
+                            Please enter a valid email address.
+                          </div>
                         </div>
+                      
+                        <!-- Phone Number -->
                         <div class="form-group mb-3">
-                            <input type="password" placeholder="Create Password" class="form-control form-control-lg border-primary shadow-none" required>
+                          <input 
+                            type="text" 
+                            placeholder="Phonenumber" 
+                            class="form-control form-control-lg shadow-none" 
+                            formControlName="pnumber" 
+                            name="phonenumber" 
+                            [ngClass]="{
+                              'is-valid': formone.get('pnumber')?.valid && formone.get('pnumber')?.touched,
+                              'is-invalid': formone.get('pnumber')?.invalid && formone.get('pnumber')?.touched
+                            }">
+                          <div class="invalid-feedback" *ngIf="formone.get('pnumber')?.invalid && formone.get('pnumber')?.touched">
+                            Phone number is required.
+                          </div>
                         </div>
+                      
+                        <!-- Password -->
                         <div class="form-group mb-3">
-                            <input type="password" placeholder="Confirm Password" class="form-control form-control-lg border-primary shadow-none" required>
+                          <input 
+                            type="password" 
+                            placeholder="Create Password" 
+                            class="form-control form-control-lg shadow-none" 
+                            formControlName="password" 
+                            name="password" 
+                            [ngClass]="{
+                              'is-valid': formone.get('password')?.valid && formone.get('password')?.touched,
+                              'is-invalid': formone.get('password')?.invalid && formone.get('password')?.touched
+                            }">
+                          <div class="invalid-feedback" *ngIf="formone.get('password')?.invalid && formone.get('password')?.touched">
+                            Password is required.
+                          </div>
                         </div>
-                        <button class="btn btn-lg btn-outline-primary w-100 mt-3">Sign Up</button>
-                    </form>
+                      
+                        <!-- Confirm Password -->
+                        <div class="form-group mb-3">
+                          <input 
+                            type="password" 
+                            placeholder="Confirm Password" 
+                            class="form-control form-control-lg shadow-none" 
+                            formControlName="cpassword" 
+                            name="confirmpassword" 
+                            [ngClass]="{
+                              'is-valid': formone.get('cpassword')?.valid && formone.get('cpassword')?.touched,
+                              'is-invalid': formone.get('cpassword')?.invalid && formone.get('cpassword')?.touched
+                            }">
+                          <div class="invalid-feedback" *ngIf="formone.get('cpassword')?.invalid && formone.get('cpassword')?.touched">
+                            Confirm Password is required and should match the password.
+                          </div>
+                        </div>
+                      
+                        <!-- Submit Button -->
+                        <button 
+                          class="btn btn-lg btn-outline-primary w-100 mt-3" 
+                          [disabled]="formone.invalid" 
+                          (click)="signup()">
+                          Sign Up
+                        </button>
+                      </form>
+                      
                     <p class="mt-3 text-center text-muted">
                         Already have an account? <a routerLink="/customersignin" class="text-info">Sign in</a>
                     </p>

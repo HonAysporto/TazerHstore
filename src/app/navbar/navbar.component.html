@@ -1,0 +1,76 @@
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg bg-body-secondary py-3 px-4">
+        <div class="container-fluid d-flex justify-content-center ">
+         
+          <a class="navbar-brand fs-3 text-secondary fw-bolder" href="#">Tazerh Store</a>
+      
+     
+          <!-- <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button> -->
+      
+          <!-- Center Search Bar -->
+          <div class="d-none d-lg-block mx-auto col-8 ms-3">
+            <form class="d-flex">
+              <input
+                class="form-control form-control-lg"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="ms-2 btn btn-outline-secondary">Search</button>
+            </form>
+          </div>
+      
+          <!-- Buttons/Links -->
+          <div >
+            <ul class="navbar-nav d-flex flex-row gap-3">
+                <li class="nav-item dropdown d-lg-inline d-none">
+                
+                    <a class="nav-link dropdown-toggle d-flex justify-content-center align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                       
+                            <img class="accountimg" src="https://img.icons8.com/?size=50&id=11727&format=png" alt=""> <span class="ms-1 d-none d-lg-block">Account</span>
+                        
+                        
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" routerLink="/customersignin"><button class="btn btn-outline-primary">Sigin in</button></a></li>
+                      <li><a class="dropdown-item" href="#">Saved items</a></li>
+                      
+                    </ul>
+                  </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="">  <img class="accountimg" src="https://img.icons8.com/?size=24&id=85080&format=png" alt=""> <span class="ms-1 d-none d-lg-inline">Cart</span></a>
+              </li>
+              <li class="nav-item d-lg-none">
+                <a class="nav-link" aria-current="page" routerLink="">  <img class="accountimg" src="https://img.icons8.com/?size=50&id=11727&format=png" alt="">  <span class="ms-1 d-none d-lg-block">Account</span></a>
+              </li>
+              
+            
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Search Bar for Small Screens -->
+        <div class="d-lg-none px-3 mt-2 col-11 mx-auto">
+          <form class="d-flex">
+            <input
+              class="form-control "
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success">Search</button>
+          </form>
+        </div>
+      </nav>
+</div>
+

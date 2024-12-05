@@ -1,15 +1,5 @@
-.accountimg {
-    width: 20px;
-   color: black;
-}
 
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    margin-top: 0px;
-}
+
 
 .product-image {
     height: 200px;       
@@ -25,4 +15,16 @@
     text-overflow: ellipsis;       /* Add ellipsis (...) for truncated text */
     height: 75px;                  /* Ensure enough space for the clamped text */
   }
+
+  .main {
+    padding-top: 107px;
+  }
+
+  .mainsignin {
+    background: linear-gradient(135deg, #fafafa, #b4b488);
+}
+
+.product {
+  cursor: pointer;
+}
   

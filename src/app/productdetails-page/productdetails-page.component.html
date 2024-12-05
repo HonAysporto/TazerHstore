@@ -1,0 +1,80 @@
+
+<div class="mainsignin">
+
+
+<app-navbar></app-navbar>
+
+
+
+<div class="container mt-5 main" *ngIf="product; else noProduct">
+    <div class="row">
+      <!-- Product Image -->
+      <div class="col-md-6 text-center">
+        <img [src]="product.image || 'https://via.placeholder.com/500'" 
+             class="img-fluid rounded shadow w-75 h-75" 
+             alt="Product Image">
+      </div>
+  
+      <!-- Product Details -->
+      <div class="col-md-6">
+        <h1 class="mb-3">{{ product.title }}</h1>
+        <p class="text-muted">{{ product.description }}</p>
+  
+        <h4 class="text-success">$ {{ product.price }}</h4>
+        <h5 *ngIf="product.rating">Stock: {{ product.rating.count}} pices left</h5>
+  
+        <div class="mt-4">
+          <button class="btn btn-primary btn-lg me-2">
+            Add to Cart
+          </button>
+        </div>
+  
+        <hr class="my-4">
+  
+        <h5>Additional Information</h5>
+        <ul>
+          <li *ngIf="product.category">Category: {{ product.category }}</li>
+          <li *ngIf="product.rating">Rating: {{ product.rating.rate }} / 5</li>
+          
+        </ul>
+      </div>
+    </div>
+  
+    <hr class="my-5">
+  
+    <!-- Suggested Products Section -->
+    <div>
+      <h3>Related Products</h3>
+      <div class="row g-4">
+        <div 
+          class="col-12 col-sm-6 col-md-4 col-lg-3" 
+          *ngFor="let item of relatedProducts">
+          <div class="card h-100 product-card" (click)="pdetails(item)">
+            <div class="card-img-container">
+              <img [src]="item.image || 'https://via.placeholder.com/300'" 
+                   class="card-img-top w-100 h-100" 
+                   alt="Related Product">
+            </div>
+            <div class="card-body text-center">
+              <h5 class="card-title text-truncate">{{ item.title }}</h5>
+              <p class="text-success">$ {{ item.price }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  
+  <!-- Fallback Template -->
+  <ng-template #noProduct>
+    <div class="text-center mt-5">
+      <h2>No Product Found</h2>
+      <p>We couldn’t find the product you were looking for.</p>
+      <a routerLink="/" class="btn btn-secondary">Back to Home</a>
+    </div>
+  </ng-template>
+
+</div>
+  
