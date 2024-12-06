@@ -1,21 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-customersignup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './customersignup.component.html',
   styleUrl: './customersignup.component.css'
 })
 export class CustomersignupComponent {
 
+  private _snackBar = inject(MatSnackBar)
+
   formone:FormGroup
 
-  constructor(public builder:FormBuilder, public http: HttpClient) {
+  constructor(public builder:FormBuilder, public http: HttpClient, public route:Router) {
     this.formone = this.builder.group({
       fname:['', Validators.required],
       lname:['', Validators.required],
@@ -26,6 +32,12 @@ export class CustomersignupComponent {
     })
   }
 
+ 
+
+  // openSnackBar(message: string, action: string) {
+  //   this._snackBar.open(message, action);
+  // }
+
   signup() {
     if(this.formone.value['password'] !== this.formone.value['cpassword']){
       alert('password mismatch')
@@ -33,15 +45,18 @@ export class CustomersignupComponent {
       let customerinfo = {
         ...this.formone.value
       }
-      // let anothercustomer = {
-      //   fname: 'Ayomide',
-      //   lname: 'Adewale',
-      //   email: 'ayomideoluwafemi2019@gmail.com',
-      //   pnumber: '09034526764',
-      //   password: 'fish'
-      // }
+    
+
+    
      this.http.post('http://localhost/tazerhstore/customersignup.php', customerinfo).subscribe((data:any)=> {
       console.log(data);
+      this._snackBar.open(data.msg, 'continue', {
+        duration: 3000
+      })
+      this.formone.reset()
+      if (data.status == true) {
+        this.route.navigate(['customersignin'])
+      } 
       
      }, (error:any)=> {
       console.log(error);
@@ -50,6 +65,8 @@ export class CustomersignupComponent {
 
       
     }
+
+
 
   
   }

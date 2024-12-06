@@ -10,7 +10,7 @@
 
         <div class="col-12 col-md-6">
             <div class="container">
-                <div class="mx-auto  py-5 px-3 p-lg-5 shadow-lg rounded-5">
+                <div class="mx-auto  py-4 px-3 p-lg-5 shadow-lg rounded-5">
                     <h3 class="text-center text-primary mb-4 font-weight-bold">Create an Account</h3>
                     <form [formGroup]="formone">
                         <!-- First Name -->
@@ -18,7 +18,7 @@
                           <input 
                             type="text" 
                             placeholder="First Name" 
-                            class="form-control form-control-lg shadow-none" 
+                            class="form-control form-control shadow-none" 
                             formControlName="fname" 
                             name="firstname" 
                             [ngClass]="{
@@ -35,7 +35,7 @@
                           <input 
                             type="text" 
                             placeholder="Last Name" 
-                            class="form-control form-control-lg shadow-none" 
+                            class="form-control form-control shadow-none" 
                             formControlName="lname" 
                             name="lastname" 
                             [ngClass]="{
@@ -52,7 +52,7 @@
                           <input 
                             type="email" 
                             placeholder="Email" 
-                            class="form-control form-control-lg shadow-none" 
+                            class="form-control form-control shadow-none" 
                             formControlName="email" 
                             name="email" 
                             [ngClass]="{
@@ -69,7 +69,7 @@
                           <input 
                             type="text" 
                             placeholder="Phonenumber" 
-                            class="form-control form-control-lg shadow-none" 
+                            class="form-control form-control shadow-none" 
                             formControlName="pnumber" 
                             name="phonenumber" 
                             [ngClass]="{
@@ -86,7 +86,7 @@
                           <input 
                             type="password" 
                             placeholder="Create Password" 
-                            class="form-control form-control-lg shadow-none" 
+                            class="form-control form-control shadow-none" 
                             formControlName="password" 
                             name="password" 
                             [ngClass]="{
@@ -103,7 +103,7 @@
                           <input 
                             type="password" 
                             placeholder="Confirm Password" 
-                            class="form-control form-control-lg shadow-none" 
+                            class="form-control form-control shadow-none" 
                             formControlName="cpassword" 
                             name="confirmpassword" 
                             [ngClass]="{
@@ -117,14 +117,14 @@
                       
                         <!-- Submit Button -->
                         <button 
-                          class="btn btn-lg btn-outline-primary w-100 mt-3" 
+                          class="btn btn-outline-primary w-100 mt-3" 
                           [disabled]="formone.invalid" 
                           (click)="signup()">
                           Sign Up
                         </button>
                       </form>
                       
-                    <p class="mt-3 text-center text-muted">
+                    <p class="mt-2 text-center text-muted">
                         Already have an account? <a routerLink="/customersignin" class="text-info">Sign in</a>
                     </p>
                 </div>
@@ -132,4 +132,17 @@
         </div>
     </div>
 </div>
+
+<!-- <mat-form-field>
+  <mat-label>Message</mat-label>
+  <input matInput value="Disco party!" #message>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Action</mat-label>
+  <input matInput value="Dance" #action>
+</mat-form-field>
+
+<button  (click)="openSnackBar(message.value, action.value)">Show snack-bar</button> -->
+
 
