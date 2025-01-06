@@ -20,9 +20,9 @@ export class LandingpageComponent {
   constructor(public http:HttpClient, public route:Router, public productservice: ProductService) {}
 
   ngOnInit() {
-    this.http.get('https://fakestoreapi.com/products').subscribe((data:any)=>{
+    this.http.get('http://localhost/tazerhstore/getallproducts.php').subscribe((data:any)=>{
       console.log(data);
-      this.products = data
+      this.products = data.msg
       
     }, (error:any)=> {
       console.log(error);
@@ -33,7 +33,7 @@ export class LandingpageComponent {
   pdetails(product:any) {
     this.productservice.setProduct(product)
     localStorage.setItem('selectedproduct', JSON.stringify(product));
-    this.route.navigate([`${product.title}`])
+    this.route.navigate([`${product.productname}`])
     
   }
 

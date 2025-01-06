@@ -1,30 +1,77 @@
+.mainsignin {
+  background: linear-gradient(135deg, #f8f9fa, #d6e9c6);
+  min-height: 100vh;
+  padding: 20px 0;
+}
 
+.seller {
+  text-align: center;
+  margin-bottom: 15px;
+}
 
+.text {
+  text-decoration: none;
+  font-weight: bold;
+  color: #007bff;
+  padding: 5px 20px;
+  border: 1px solid #007bff;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.text:hover {
+  background-color: #007bff;
+  color: #fff;
+}
 
 .product-image {
-    height: 200px;       
-    width: 100%;         
-    object-fit: cover;   
-  }
-
-  .description-line-clamp {
-    display: -webkit-box;          /* Enables multi-line truncation */
-    -webkit-box-orient: vertical;  /* Vertical orientation for the box */
-    -webkit-line-clamp: 3;         /* Number of lines to display */
-    overflow: hidden;              /* Hide the overflowing content */
-    text-overflow: ellipsis;       /* Add ellipsis (...) for truncated text */
-    height: 75px;                  /* Ensure enough space for the clamped text */
-  }
-
-  .main {
-    padding-top: 107px;
-  }
-
-  .mainsignin {
-    background: linear-gradient(135deg, #fafafa, #b4b488);
+  height: 220px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
-.product {
-  cursor: pointer;
+.description-line-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
 }
-  
+
+.card {
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shopname {
+  margin-top: 10px;
+}
+
+.shopname .badge {
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main {
+  padding: 20px 15px;
+}
+
+@media (max-width: 768px) {
+  .product-image {
+    height: 180px;
+  }
+
+  .shopname .badge {
+    font-size: 0.8rem;
+  }
+}

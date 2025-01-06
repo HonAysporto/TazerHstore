@@ -17,14 +17,14 @@
   
       <!-- Product Details -->
       <div class="col-md-6">
-        <h1 class="mb-3">{{ product.title }}</h1>
+        <h1 class="mb-3">{{ product.productname }}</h1>
         <p class="text-muted">{{ product.description }}</p>
   
         <h4 class="text-success">$ {{ product.price }}</h4>
-        <h5 *ngIf="product.rating">Stock: {{ product.rating.count}} pices left</h5>
+        <h5 *ngIf="product.quantity">Stock: {{ product.quantity}} pices left</h5>
   
         <div class="mt-4">
-          <button class="btn btn-primary btn-lg me-2">
+          <button (click)="addToCart(product.productid, product.quantity)" class="btn btn-primary btn-lg me-2">
             Add to Cart
           </button>
         </div>

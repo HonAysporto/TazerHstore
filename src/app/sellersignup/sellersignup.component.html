@@ -1,0 +1,138 @@
+<main class="body py-5">
+    <div class="signup-container my-5">
+        <div class="signup-header">
+            <h2>Register</h2>
+        </div>
+
+        <form [formGroup]="formone">
+            <!-- First Name -->
+            <div class="mb-3">
+                <label for="FirstName" class="form-label">First Name</label>
+                <input type="text" 
+                       class="form-control" 
+                       formControlName="firstname" 
+                       name="firstname" 
+                       placeholder="Enter your first name"
+                       [ngClass]="{
+                          'is-valid': formone.get('firstname')?.valid && formone.get('firstname')?.touched,
+                          'is-invalid': formone.get('firstname')?.invalid && formone.get('firstname')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('firstname')?.invalid && formone.get('firstname')?.touched">
+                    First name is required.
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+                <label for="Lastname" class="form-label">Last Name</label>
+                <input type="text" 
+                       class="form-control" 
+                       formControlName="lastname" 
+                       name="lastname" 
+                       placeholder="Enter your last name"
+                       [ngClass]="{
+                          'is-valid': formone.get('lastname')?.valid && formone.get('lastname')?.touched,
+                          'is-invalid': formone.get('lastname')?.invalid && formone.get('lastname')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('lastname')?.invalid && formone.get('lastname')?.touched">
+                    Last name is required.
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" 
+                       class="form-control" 
+                       formControlName="email" 
+                       name="email" 
+                       placeholder="Enter your email"
+                       [ngClass]="{
+                          'is-valid': formone.get('email')?.valid && formone.get('email')?.touched,
+                          'is-invalid': formone.get('email')?.invalid && formone.get('email')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('email')?.invalid && formone.get('email')?.touched">
+                    Please provide a valid email address.
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" 
+                       class="form-control" 
+                       formControlName="password" 
+                       name="password" 
+                       placeholder="Create a password"
+                       [ngClass]="{
+                          'is-valid': formone.get('password')?.valid && formone.get('password')?.touched,
+                          'is-invalid': formone.get('password')?.invalid && formone.get('password')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('password')?.invalid && formone.get('password')?.touched">
+                    Password is required.
+                </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" 
+                       class="form-control" 
+                       formControlName="confirmPassword" 
+                       name="confirmPassword" 
+                       placeholder="Confirm your password"
+                       [ngClass]="{
+                          'is-valid': formone.get('confirmPassword')?.valid && formone.get('confirmPassword')?.touched,
+                          'is-invalid': formone.get('confirmPassword')?.invalid && formone.get('confirmPassword')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('confirmPassword')?.invalid && formone.get('confirmPassword')?.touched">
+                    Password confirmation is required.
+                </div>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact Number</label>
+                <input type="tel" 
+                       class="form-control" 
+                       formControlName="contact" 
+                       name="contact" 
+                       placeholder="Enter your contact number"
+                       [ngClass]="{
+                          'is-valid': formone.get('contact')?.valid && formone.get('contact')?.touched,
+                          'is-invalid': formone.get('contact')?.invalid && formone.get('contact')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('contact')?.invalid && formone.get('contact')?.touched">
+                    Contact number is required.
+                </div>
+            </div>
+
+            <!-- Shop Name -->
+            <div class="mb-3">
+                <label for="shopName" class="form-label">Shop Name</label>
+                <input type="text" 
+                       class="form-control" 
+                       formControlName="shopname" 
+                       name="shopname" 
+                       placeholder="Enter your shop name"
+                       [ngClass]="{
+                          'is-valid': formone.get('shopname')?.valid && formone.get('shopname')?.touched,
+                          'is-invalid': formone.get('shopname')?.invalid && formone.get('shopname')?.touched
+                       }">
+                <div class="invalid-feedback" *ngIf="formone.get('shopname')?.invalid && formone.get('shopname')?.touched">
+                    Shop name is required.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+                <button [disabled]="formone.invalid" (click)="signup()" type="submit" class="btn btn-custom">Sign Up</button>
+            </div>
+        </form>
+
+        <!-- Already have an account -->
+        <div class="text-center mt-3">
+            <p>Already have an account? <a routerLink="/sellerlogin" class="text-decoration-none">Login</a></p>
+        </div>
+    </div>
+</main>

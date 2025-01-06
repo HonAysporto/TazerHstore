@@ -16,6 +16,7 @@ import { AuthserviceService } from '../services/authservice.service';
 export class CustomerloginComponent {
 
   private _snackBar = inject(MatSnackBar)
+ 
 
 formone:FormGroup
   constructor(public builder:FormBuilder, public http: HttpClient, public route: Router, public authservice : AuthserviceService, ) {
@@ -25,7 +26,9 @@ formone:FormGroup
     })
   }
 
+
   signin() {
+   
     let customerinfo = {
       ...this.formone.value
     }
@@ -38,7 +41,8 @@ formone:FormGroup
 
       if (data.status == true) {
         this.authservice.login(data.user);
-        this.route.navigate([''])
+        this.handleLoginTransition();
+        this.route.navigate(['']);
       }
     }, (error:any)=> {
       console.log(error)
@@ -49,5 +53,71 @@ formone:FormGroup
     
     
   }
+
+handleLoginTransition() {
+  const userId = JSON.parse(sessionStorage.getItem('user')!).customer_id;
+    const guestCart = JSON.parse(sessionStorage.getItem('guestCart')!) || [];
+    
+    // if (guestCart.length > 0) {
+    //     // Fetch logged-in user's cart
+    //     fetch(`/api/getUserCart?userId=${userId}`)
+    //         .then(response => response.json())
+    //         .then(userCart => {
+    //             // Merge carts
+    //             const mergedCart = this.mergeCarts(guestCart, userCart);
+                
+    //             // Save merged cart to the server
+    //             fetch(`/api/saveUserCart`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 body: JSON.stringify({ userId, cart: mergedCart })
+    //             })
+    //             .then(() => {
+    //                 // Clear guest cart
+    //                 localStorage.removeItem('guestCart');
+    //             });
+    //         });
+    // }
+
+    if (guestCart.length > 0) {
+      this.http.post('http://localhost/tazerhstore/cart.php', {'userId':userId}).subscribe((data:any)=> {
+        console.log(data);
+        let userCart = data.msg
+
+        const mergedCart = this.mergeCarts(guestCart, userCart);
+        console.log('This is the merged', mergedCart);
+        
+        
+      }, (error)=> {
+        console.log(error);
+        
+      })
+    }
+}
+
+mergeCarts(guestCart:any, userCart:any) {
+    const cartMap = new Map();
+
+    // Add user cart items to the map
+    userCart.forEach((item: { productId: number, orderedQuantity: number })  =>  cartMap.set(item.productId, item.orderedQuantity));
+
+    console.log('this is the cartMap', cartMap);
+    
+
+    // Merge guest cart items
+    guestCart.forEach((item: { productId: number, orderedQuantity: number })=> {
+        if (cartMap.has(item.productId)) {
+            cartMap.set(item.productId, cartMap.get(item.productId) + item.orderedQuantity);
+        } else {
+            cartMap.set(item.productId, item.orderedQuantity);
+        }
+    });
+
+    // Convert map back to an array
+    return Array.from(cartMap, ([productId, orderedQuantity]) => ({ productId, orderedQuantity }));
+}
+
 
 }

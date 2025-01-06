@@ -1,0 +1,88 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2 class="text-center">Add New Product</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label class="form-label">Product Name</label>
+          <input type="text" class="form-control" formControlName="productName" placeholder="Enter product name">
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select" formControlName="category">
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+      
+
+        <div class="form-group mb-3">
+          <label class="form-label">Price ($)</label>
+          <input type="number" class="form-control" formControlName="price" placeholder="Enter product price">
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Quantity</label>
+          <input type="number" placeholder="Product quantity" class="form-control" formControlName="quantity">
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" formControlName="description" rows="4" placeholder="Enter product description"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Product Image</label>
+          <input type="file" class="form-control" (change)="onFileSelect($event)" formControlName="file">
+        </div>
+
+        <div class="text-center">
+          <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-success px-5">
+            Add Product
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="loading" class="loader-overlay">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 100 100"
+    class="fancy-loader"
+  >
+    <circle
+      cx="50"
+      cy="50"
+      r="45"
+      stroke="#3498db"
+      stroke-width="10"
+      fill="none"
+      stroke-dasharray="283"
+      stroke-dashoffset="0"
+    >
+      <animate
+        attributeName="stroke-dashoffset"
+        from="283"
+        to="0"
+        dur="1.5s"
+        repeatCount="indefinite"
+      />
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 50 50"
+        to="360 50 50"
+        dur="2s"
+        repeatCount="indefinite"
+      />
+    </circle>
+  </svg>
+  <div class="loader-text">Adding Product... </div>
+</div>
+

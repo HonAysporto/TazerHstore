@@ -1,0 +1,54 @@
+<div style="position: fixed; top: 0;  z-index: 100; width: 100%;">
+    <nav class="navbar navbar-expand-lg bg-body-secondary" >
+        <div class="container-fluid">
+          <a class="navbar-brand text-success fw-bolder" href="#">{{this.userserve.msg}}</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink="">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="tazer">Contacts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="templatevalidate">Templateform</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="reactiveform">Reactiveform</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="noteapp">NoteApp</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="studentsignup">Student Signup</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="studentsignin">Student Signin</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="studentdashboard">Student dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="eventparent">Event parent</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="stepperform">Stepper Form</a>
+              </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+</div>
+

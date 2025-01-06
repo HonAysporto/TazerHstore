@@ -1,0 +1,52 @@
+<main class="body">
+
+
+    <div class="login-container">
+        <!-- Header -->
+        <div class="login-header">
+            <h2>Login</h2>
+        </div>
+
+        <!-- Login Form -->
+        <form [formGroup]="formone">
+           
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="Enter your email"  [ngClass]="{
+                    'is-valid': formone.get('email')?.valid && formone.get('email')?.touched,
+                    'is-invalid': formone.get('email')?.invalid && formone.get('email')?.touched
+                  }">
+                   <div class="invalid-feedback" *ngIf="formone.get('email')?.invalid && formone.get('email')?.touched">
+                    Email is required
+                  </div>
+            </div>
+
+           
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="Enter your password"  [ngClass]="{
+                    'is-valid': formone.get('password')?.valid && formone.get('password')?.touched,
+                    'is-invalid': formone.get('password')?.invalid && formone.get('password')?.touched
+                  }">
+                   <div class="invalid-feedback" *ngIf="formone.get('password')?.invalid && formone.get('password')?.touched">
+                   Password is required.
+                  </div>
+            </div>
+
+           
+            <div class="mb-3 d-flex justify-content-end">
+                <a href="#" class="text-decoration-none">Forgot Password?</a>
+            </div>
+
+           
+            <div class="d-grid">
+                <button [disabled]="formone.invalid" (click)="login()" type="submit" class="btn btn-custom">Login</button>
+            </div>
+        </form>
+
+      
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a routerLink="/sellersignup" class="text-decoration-none">Sign up</a></p>
+        </div>
+    </div>
+</main>

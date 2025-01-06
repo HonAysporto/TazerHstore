@@ -1,0 +1,27 @@
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+}
+
+.sidebar .nav-link {
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #495057;
+    text-decoration: none;
+}
+
+.dashboard-header {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+    overflow-y: auto;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid #495057;
+}

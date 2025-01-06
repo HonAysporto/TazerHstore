@@ -1,36 +1,26 @@
 <div class="mainsignin">
+  <div class="seller">
+    <a class="text-primary text" routerLink="sellerlogin">Seller's Account</a>
+  </div>
+  <app-navbar></app-navbar>
 
-
-<app-navbar></app-navbar>
-
-
-<div class="main ">
-  <div class="container my-4 mt-5">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-
-      <div *ngFor="let product of products" class="col">
-
-        <div class="card h-100 product " (click)="pdetails(product)">
-          <!-- Fixed Image Size -->
-          <img [src]="product.image" class="card-img-top product-image" alt="Product Image">
-          <div class="card-body text-center">
-            <h5 class="card-title text-truncate">{{ product.title }}</h5>
-            <p class="card-text text-muted description-line-clamp">{{ product.description }}...</p>
-            <h6 class="text-success">${{ product.price }}</h6>
-            
+  <div class="main">
+    <div class="container my-4 mt-5">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div *ngFor="let product of products" class="col">
+          <div class="card h-100 product shadow-sm" (click)="pdetails(product)">
+            <img [src]="product.image" class="card-img-top product-image" alt="Product Image">
+            <div class="card-body text-center">
+              <h5 class="card-title text-truncate">{{ product.productname }}</h5>
+              <p class="card-text text-muted description-line-clamp">{{ product.description }}...</p>
+              <h6 class="text-success fw-bold">Price: ${{ product.price }}</h6>
+              <div class="shopname">
+                <span class="badge bg-primary">{{ product.shopname }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-</div>
-
-  
-  
-
-
-  
-
-  
