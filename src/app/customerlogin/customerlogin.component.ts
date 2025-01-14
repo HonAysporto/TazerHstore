@@ -84,16 +84,19 @@ handleLoginTransition() {
     if (guestCart.length > 0) {
       this.http.post('http://localhost/tazerhstore/cart.php', {'userId':userId}).subscribe((data:any)=> {
         console.log(data);
-        let userCart = data.msg
+        let userCart = data.msg || [];
 
         const mergedCart = this.mergeCarts(guestCart, userCart);
         console.log('This is the merged', mergedCart);
-        
+
+        this.saveMergrCart(userId, mergedCart);
         
       }, (error)=> {
         console.log(error);
         
       })
+
+      
     }
 }
 
@@ -110,13 +113,25 @@ mergeCarts(guestCart:any, userCart:any) {
     guestCart.forEach((item: { productId: number, orderedQuantity: number })=> {
         if (cartMap.has(item.productId)) {
             cartMap.set(item.productId, cartMap.get(item.productId) + item.orderedQuantity);
-        } else {
+        } else { 
             cartMap.set(item.productId, item.orderedQuantity);
         }
+        sessionStorage.removeItem('guestCart')
     });
 
     // Convert map back to an array
     return Array.from(cartMap, ([productId, orderedQuantity]) => ({ productId, orderedQuantity }));
+}
+
+
+saveMergrCart(userId:any, mergedCart:any) {
+  this.http.post('http://localhost/tazerhstore/updatecart.php', {userId, cart: mergedCart}).subscribe((data:any)=> {
+    console.log(data);
+    
+  }, (error) => {
+    console.log(error);
+    
+  })
 }
 
 

@@ -66,9 +66,11 @@ public orderedQuantity:number = 1
         console.log(userId);
         
         this.addToCartLoggedIn(userId, productId, quantity);
+       
     }
      else {
         this.addToCartGuest(productId, quantity);
+        window.location.reload()
     }
   }
 
@@ -105,7 +107,7 @@ addToCartLoggedIn(userId:any, productId:number, quantity:number) {
  }, (error) => {
     console.log(error);
  })
- 
+ window.location.reload()
 }
 
 

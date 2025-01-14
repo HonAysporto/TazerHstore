@@ -18,7 +18,6 @@ export class NavbarComponent {
   constructor(public authserviceService: AuthserviceService, public activatedroute : ActivatedRoute, public cartservice : CartService) {}
   public countno:number = 0
   public user:any = {}
-
   public mobileMenuOpen: boolean = false;
 
 
@@ -30,12 +29,18 @@ toggleMobileMenu() {
 
   ngOnInit() {
     
-    this.cartservice.cartCount$.subscribe(count => {
-      this.countno = count;
-    });
-  
-    
-   this.user = this.authserviceService.getUser()
+  //   this.cartservice.cartCount$.subscribe(count => {
+  //     this.countno = count;
+  //   });
+
+
+
+  this.cartservice.cartcount((totalQuantity) => {
+   this.countno = totalQuantity
+  });
+
+  // this.countno = this.cartservice.cartcount();  
+  this.user = this.authserviceService.getUser()
   }
 
 
