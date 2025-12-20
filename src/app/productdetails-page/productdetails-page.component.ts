@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
-
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CartService } from '../services/cart.service';
 
@@ -12,106 +11,114 @@ import { CartService } from '../services/cart.service';
   standalone: true,
   imports: [CommonModule, NavbarComponent],
   templateUrl: './productdetails-page.component.html',
-  styleUrl: './productdetails-page.component.css'
+  styleUrls: ['./productdetails-page.component.css'] // fixed typo
 })
-export class ProductdetailsPageComponent {
-public product:any = {}
+export class ProductdetailsPageComponent  implements AfterViewInit {
+  private platformId: Object = inject(PLATFORM_ID);
 
-public relatedProducts:any = []
-public orderedQuantity:number = 1
-  constructor(public activatedroute: ActivatedRoute, public productservice: ProductService, public http:HttpClient, public route : Router, public cartService: CartService ) {}
+  public product: any = {};
+  public relatedProducts: any[] = [];
+  public orderedQuantity: number = 1;
 
- 
- 
+  constructor(
+    public activatedroute: ActivatedRoute,
+    public productservice: ProductService,
+    public http: HttpClient,
+    public route: Router,
+    public cartService: CartService
+  ) {}
 
   ngOnInit() {
-   
-   
-    this.activatedroute.params.subscribe(()=> {
+    if (isPlatformBrowser(this.platformId)) {
+      this.activatedroute.params.subscribe(() => {
+        this.loadProduct();
+      });
       this.loadProduct();
-    })
+    }
+  }
 
-    this.loadProduct();
-    
-    
+    ngAfterViewInit() {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document
+      .querySelectorAll('.reveal')
+      .forEach(el => observer.observe(el));
   }
 
   loadProduct() {
-    this.product =JSON.parse(localStorage.getItem('selectedproduct')!)
-    console.log(this.product);
-    this.http.get('https://fakestoreapi.com/products').subscribe((data:any)=>{
-      console.log(data);
-      this.relatedProducts = data
-      
-    }, (error:any)=> {
-      console.log(error);
-      
-    })
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const storedProduct = localStorage.getItem('selectedproduct');
+    this.product = storedProduct ? JSON.parse(storedProduct) : {};
+    console.log('Loaded product:', this.product);
+
+    this.http.get('https://fakestoreapi.com/products').subscribe(
+      (data: any) => {
+        console.log('Related products:', data);
+        this.relatedProducts = data;
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 
-  pdetails(product:any) {
-    // this.productservice.setProduct(product)
+  pdetails(product: any) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     localStorage.setItem('selectedproduct', JSON.stringify(product));
-    this.route.navigate([`/${product.title}`])
-    
+    this.route.navigate([`/${product.title}`]);
   }
 
+  addToCart(productId: any, quantity: number) {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-  addToCart(productId:any, quantity:any) {
-    console.log(productId, quantity);
-    
-    const isLoggedIn = Boolean(sessionStorage.getItem('user')); 
-    if (isLoggedIn) {      
-        const userId = JSON.parse(sessionStorage.getItem('user')!).customer_id;
-        console.log(userId);
-        
-        this.addToCartLoggedIn(userId, productId, quantity);
-       
+    const isLoggedIn = Boolean(sessionStorage.getItem('user'));
+    if (isLoggedIn) {
+      const userId = JSON.parse(sessionStorage.getItem('user')!).customer_id;
+      this.addToCartLoggedIn(userId, productId, quantity);
+    } else {
+      this.addToCartGuest(productId, quantity);
+     
     }
-     else {
-        this.addToCartGuest(productId, quantity);
-        window.location.reload()
-    }
+     window.location.reload();
   }
 
+  addToCartGuest(productId: number, quantity: number) {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-
- addToCartGuest(productId:number, quantity:any) {
     let cart = JSON.parse(sessionStorage.getItem('guestCart')!) || [];
-
-    
-    const productIndex = cart.findIndex((item: { productId: any; }) => item.productId === productId);
-console.log('productIndex', productIndex);
+    const productIndex = cart.findIndex((item: { productId: any }) => item.productId === productId);
 
     if (productIndex !== -1) {
-       
-        cart[productIndex].orderedQuantity += this.orderedQuantity;
+      cart[productIndex].orderedQuantity += this.orderedQuantity;
     } else {
-      
-        cart.push({ productId, "orderedQuantity":this.orderedQuantity });
+      cart.push({ productId, orderedQuantity: this.orderedQuantity });
     }
 
-   
     sessionStorage.setItem('guestCart', JSON.stringify(cart));
     console.log('Added to guest cart:', cart);
-}
-
-
-addToCartLoggedIn(userId:any, productId:number, quantity:number) {
-  let details = {
-    userId, productId, "orderedQuantity":this.orderedQuantity
   }
- this.http.post('http://localhost/tazerhstore/savecart.php', details).subscribe((data:any)=> {
-    console.log(data);
-    
- }, (error) => {
-    console.log(error);
- })
- window.location.reload()
-}
 
-
-
-
-
+  addToCartLoggedIn(userId: any, productId: number, quantity: number) {
+    const details = { userId, productId, orderedQuantity: this.orderedQuantity };
+    this.http.post('http://localhost/tazerhstore/savecart.php', details).subscribe(
+      (data: any) => {
+        console.log('Cart saved:', data);
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+    // window.location.reload();
+  }
 }

@@ -1,36 +1,64 @@
-
-.btn-gradient {
-    background: linear-gradient(45deg, #ff7e5f, #feb47b);
-    color: white;
-    border: none;
+/* Page background */
+.auth-page {
+  background: linear-gradient(135deg, #f4f8ff, #eef4ff);
 }
 
-.btn-gradient:hover {
-    background: linear-gradient(45deg, #feb47b, #ff7e5f);
-    color: #fff;
+/* Left visual */
+.auth-visual {
+  max-width: 420px;
 }
 
-.bg-gradient {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+.brand-title {
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #0d6efd;
 }
 
+.image-wrapper {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 30px 60px rgba(13, 110, 253, 0.15);
+}
+
+/* Card */
+.auth-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 480px;
+}
+
+/* Inputs */
 .form-control {
-    border-radius: 50px;
-    transition: all 0.3s ease;
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 0 16px;
+  transition: all 0.2s ease;
 }
 
 .form-control:focus {
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-    border-color: #007bff;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25);
 }
 
-h3 {
-    font-family: 'Arial', sans-serif;
-    font-weight: 700;
-    font-size: 28px;
+/* Button */
+.btn-primary {
+  height: 52px;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.mainsignin {
-    background: linear-gradient(135deg, #fafafa, #b4b488);
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(13,110,253,.35);
 }
 
+/* Mobile tweaks */
+@media (max-width: 991px) {
+  .auth-card {
+    padding: 24px;
+  }
+}

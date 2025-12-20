@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
@@ -11,57 +11,60 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule, MatProgressSpinnerModule],
   templateUrl: './manage-products.component.html',
-  styleUrl: './manage-products.component.css'
+  styleUrls: ['./manage-products.component.css'] // fixed typo
 })
 export class ManageProductsComponent {
   private _snackBar = inject(MatSnackBar);
-  public products: any = [];
+  private platformId: Object = inject(PLATFORM_ID);
+
+  public products: any[] = [];
   public seller: any = {};
-  public loading: boolean = true; // For initial fetch
-  public isDeleting: boolean[] = []; // For tracking deletion loading states
-  public isEditing: boolean = false; // To track if we're in edit mode
-  public editingProduct: any = null; // To hold the product being edited
-  editloading = false;
+  public loading: boolean = true;
+  public isDeleting: boolean[] = [];
+  public isEditing: boolean = false;
+  public editingProduct: any = null;
+  public editloading = false;
 
   constructor(public http: HttpClient) {}
 
   ngOnInit() {
-    this.seller = JSON.parse(localStorage.getItem('seller')!);
+    if (isPlatformBrowser(this.platformId)) {
+      const sellerStr = localStorage.getItem('seller');
+      this.seller = sellerStr ? JSON.parse(sellerStr) : {};
+    }
 
     // Fetch products
     this.http.post('http://localhost/tazerhstore/manageproducts.php', this.seller).subscribe(
       (data: any) => {
         console.log(data);
-        this.products = data.msg;
-        this.loading = false; // Stop loader after fetching
+        this.products = data.msg || [];
+        this.loading = false;
       },
       (error: any) => {
         console.error(error);
-        this.loading = false; // Stop loader even if there's an error
+        this.loading = false;
         this._snackBar.open('Error fetching products.', 'Dismiss', { duration: 3000 });
       }
     );
   }
 
   delete(i: number, productname: string) {
-    const product = {
-      productname: productname
-    };
-    this.isDeleting[i] = true; // Start loader for specific product
+    const product = { productname };
+    this.isDeleting[i] = true;
 
     this.http.post('http://localhost/tazerhstore/deleteproduct.php', product).subscribe(
       (data: any) => {
         console.log(data);
-        this.isDeleting[i] = false; // Stop loader for specific product
+        this.isDeleting[i] = false;
         this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
 
         if (data.status) {
-          this.products.splice(i, 1); // Remove product from list
+          this.products.splice(i, 1);
         }
       },
       (error: any) => {
         console.error(error);
-        this.isDeleting[i] = false; // Stop loader for specific product
+        this.isDeleting[i] = false;
         this._snackBar.open('Error deleting product. Please try again.', 'Dismiss', { duration: 3000 });
       }
     );
@@ -69,7 +72,7 @@ export class ManageProductsComponent {
 
   edit(product: any) {
     this.isEditing = true;
-    this.editingProduct = { ...product }; // Clone product to avoid direct mutation
+    this.editingProduct = { ...product };
   }
 
   saveChanges() {
@@ -82,35 +85,36 @@ export class ManageProductsComponent {
         product_category: this.editingProduct.category
       }
     };
+
     this.editloading = true;
+
     this.http.post('http://localhost/tazerhstore/updateproduct.php', payload).subscribe(
       (data: any) => {
-
         console.log(data);
         this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
-  
+
         if (data.status) {
-          // Update the local product list
           const index = this.products.findIndex(
             (p: any) => p.productname === this.editingProduct.productname
           );
           if (index !== -1) {
-            this.products[index] = { ...this.editingProduct }; // Replace the old product with the updated one
+            this.products[index] = { ...this.editingProduct };
           }
           this.cancelEdit();
-          this.editloading = false;
         }
+
+        this.editloading = false;
       },
       (error: any) => {
         console.error(error);
         this._snackBar.open('Error updating product. Please try again.', 'Dismiss', { duration: 3000 });
+        this.editloading = false;
       }
     );
   }
-  
+
   cancelEdit() {
     this.isEditing = false;
     this.editingProduct = null;
   }
-  
 }

@@ -1,80 +1,97 @@
+<div class="product-page">
 
-<div class="mainsignin">
+  <app-navbar></app-navbar>
 
+  <!-- PRODUCT SECTION -->
+  <div class="container product-section mt-5" *ngIf="product; else noProduct">
 
-<app-navbar></app-navbar>
+    <div class="row align-items-center gy-5 reveal">
 
-
-
-<div class="container mt-5 main" *ngIf="product; else noProduct">
-    <div class="row">
-      <!-- Product Image -->
-      <div class="col-md-6 text-center">
-        <img [src]="product.image || 'https://via.placeholder.com/500'" 
-             class="img-fluid rounded shadow w-75 h-75" 
-             alt="Product Image">
-      </div>
-  
-      <!-- Product Details -->
-      <div class="col-md-6">
-        <h1 class="mb-3">{{ product.productname }}</h1>
-        <p class="text-muted">{{ product.description }}</p>
-  
-        <h4 class="text-success">$ {{ product.price }}</h4>
-        <h5 *ngIf="product.quantity">Stock: {{ product.quantity}} pices left</h5>
-  
-        <div class="mt-4">
-          <button (click)="addToCart(product.productid, product.quantity)" class="btn btn-primary btn-lg me-2">
-            Add to Cart
-          </button>
+      <!-- IMAGE -->
+      <div class="col-lg-6 text-center">
+        <div class="product-image-wrapper">
+          <img
+            [src]="product.image || 'https://via.placeholder.com/500'"
+            alt="Product Image"
+          />
         </div>
-  
-        <hr class="my-4">
-  
-        <h5>Additional Information</h5>
-        <ul>
-          <li *ngIf="product.category">Category: {{ product.category }}</li>
-          <li *ngIf="product.rating">Rating: {{ product.rating.rate }} / 5</li>
-          
-        </ul>
+      </div>
+
+      <!-- DETAILS -->
+      <div class="col-lg-6">
+
+        <h1 class="product-title">{{ product.productname }}</h1>
+        <p class="product-desc">{{ product.description }}</p>
+
+        <div class="price-stock">
+          <h3 class="price">₦{{ product.price | number }}</h3>
+          <span *ngIf="product.quantity" class="stock">
+            {{ product.quantity }} pieces left
+          </span>
+        </div>
+
+        <button
+          class="btn btn-primary btn-lg add-to-cart-btn mt-4"
+          (click)="addToCart(product.productid, product.quantity)"
+        >
+          🛒 Add to Cart
+        </button>
+
+        <div class="extra-info mt-5">
+          <h6 class="fw-bold mb-3">Product Details</h6>
+          <ul>
+            <li *ngIf="product.category">
+              <strong>Category:</strong> {{ product.category }}
+            </li>
+            <li *ngIf="product.rating">
+              <strong>Rating:</strong> ⭐ {{ product.rating.rate }} / 5
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
-  
-    <hr class="my-5">
-  
-    <!-- Suggested Products Section -->
-    <div>
-      <h3>Related Products</h3>
+
+    <!-- RELATED PRODUCTS -->
+    <section class="related-section mt-5 reveal">
+      <h4 class="fw-bold mb-4">Related Products</h4>
+
       <div class="row g-4">
-        <div 
-          class="col-12 col-sm-6 col-md-4 col-lg-3" 
-          *ngFor="let item of relatedProducts">
-          <div class="card h-100 product-card" (click)="pdetails(item)">
-            <div class="card-img-container">
-              <img [src]="item.image || 'https://via.placeholder.com/300'" 
-                   class="card-img-top w-100 h-100" 
-                   alt="Related Product">
+
+        <div
+          class="col-6 col-md-4 col-lg-3"
+          *ngFor="let item of relatedProducts; let i = index"
+        >
+          <div
+            class="related-card"
+            (click)="pdetails(item)"
+            [style.transitionDelay]="i * 80 + 'ms'"
+          >
+            <div class="related-image">
+              <img
+                [src]="item.image || 'https://via.placeholder.com/300'"
+                alt="Related Product"
+              />
             </div>
-            <div class="card-body text-center">
-              <h5 class="card-title text-truncate">{{ item.title }}</h5>
-              <p class="text-success">$ {{ item.price }}</p>
+
+            <div class="related-info text-center">
+              <h6 class="text-truncate">{{ item.title }}</h6>
+              <span class="price">₦{{ item.price | number }}</span>
             </div>
           </div>
         </div>
+
       </div>
-      
-      
-    </div>
+    </section>
   </div>
-  
-  <!-- Fallback Template -->
+
+  <!-- FALLBACK -->
   <ng-template #noProduct>
     <div class="text-center mt-5">
       <h2>No Product Found</h2>
-      <p>We couldn’t find the product you were looking for.</p>
-      <a routerLink="/" class="btn btn-secondary">Back to Home</a>
+      <p class="text-muted">We couldn’t find the product you were looking for.</p>
+      <a routerLink="/" class="btn btn-outline-primary mt-3">Back to Home</a>
     </div>
   </ng-template>
 
 </div>
-  

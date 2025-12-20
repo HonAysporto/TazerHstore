@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -7,120 +8,82 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CartService {
 
+  public user: any = null;
+  public guestCart: any[] = [];
+  public logcart: any[] = [];
 
+  // ✅ Observable to track cart count
+  private cartCountSubject = new BehaviorSubject<number>(0);
+  public cartCount$ = this.cartCountSubject.asObservable();
 
-  // private user: any = JSON.parse(localStorage.getItem('user') || 'null');
-  // private cart: any[] = JSON.parse(localStorage.getItem('cart') || '[]');
-  // private cartCountSubject = new BehaviorSubject<number>(this.cart.length);
+  constructor(
+    public http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.user = JSON.parse(sessionStorage.getItem('user') || 'null');
+      this.guestCart = JSON.parse(sessionStorage.getItem('guestCart') || '[]');
 
-  // cartCount$ = this.cartCountSubject.asObservable();
-
-  // constructor(private http: HttpClient) {
-  //   if (this.user) {
-  //     this.syncCartWithServer();
-  //   }
-  // }
-
-  // private syncCartWithServer() {
-  //   // Fetch cart from server
-  //   this.http.post('http://localhost/tazerhstore/cart.php', { userId: this.user.customer_id })
-  //     .subscribe((data: any) => {
-  //       this.cart = data.cart || [];
-  //       this.cartCountSubject.next(this.cart.length);
-  //       localStorage.removeItem('cart'); // Clear local storage after sync
-  //     }, (error: any) => {
-  //       console.error('Error syncing cart with server:', error);
-  //     });
-  // }
-
-  // private saveCartToServer() {
-  //   this.http.post('http://localhost/tazerhstore/savecart.php', { userId: this.user.customer_id, cart: this.cart })
-  //     .subscribe((data: any) => {
-  //       console.log(data)
-  //       console.log('Cart saved to server successfully.');
-  //     }, (error: any) => {
-  //       console.error('Error saving cart to server:', error);
-  //     });
-  // }
-
-  // addToCart(product: any) {
-  //   this.cart.push(product.id);
-
-  //   if (this.user) {
-  //     this.saveCartToServer();
-  //   } else {
-  //     localStorage.setItem('cart', JSON.stringify(this.cart));
-  //   }
-
-  //   this.cartCountSubject.next(this.cart.length);
-  // }
-
-  // getCartCount(): number {
-  //   return this.cart.length;
-  // }
-
-  // getCartItems() {
-  //   return this.cart;
-  // }
-
-  // clearCart() {
-  //   this.cart = [];
-  //   this.cartCountSubject.next(0);
-
-  //   if (this.user) {
-  //     this.saveCartToServer();
-  //   } else {
-  //     localStorage.removeItem('cart');
-  //   }
-  // }
-
-  constructor(public http:HttpClient) {
-
+      // Initialize cart count on service load
+      this.updateCartCount();
+      
+    }
   }
 
-
-  public user = JSON.parse(sessionStorage.getItem('user')!) || null
-  public guestCart = JSON.parse(sessionStorage.getItem('guestCart')!) || []
- 
-  public totalQuantity:number = 0;
-
-  public  logcart:any = []
-
-
-
-  public cartcount(callback: (totalQuantity: number) => void) {
+  // Call this to calculate cart count and notify subscribers
+  public updateCartCount() {
     if (!this.user) {
-      const totalQuantity = this.guestCart.reduce((total: any, order: any) => total + order.orderedQuantity, 0);
-      callback(totalQuantity);
+      const totalQuantity = this.guestCart.reduce(
+        (total: number, order: any) => total + order.orderedQuantity,
+        0
+      );
+      this.cartCountSubject.next(totalQuantity);
     } else {
       this.logCartcount((totalQuantity: number) => {
-        console.log(totalQuantity); // This will now log the correct value
-        callback(totalQuantity);
+        this.cartCountSubject.next(totalQuantity);
       });
     }
   }
-  
+
+  // Fetch logged-in user's cart and calculate total quantity
   public logCartcount(callback: (totalQuantity: number) => void) {
-    const userId = JSON.parse(sessionStorage.getItem('user')!).customer_id
-    this.http.post('http://localhost/tazerhstore/cart.php', { userId: userId }).subscribe(
-      (data: any) => {
-        this.logcart = data.msg;
-        this.totalQuantity = this.logcart.reduce((total: any, order: any) => total + order.orderedQuantity, 0);
-        callback(this.totalQuantity);
-      },
-      (error: any) => {
-        console.log(error);
-        callback(0); // Handle errors gracefully
-      }
-    );
+    if (!isPlatformBrowser(this.platformId)) {
+      callback(0);
+      return;
+    }
+
+    const user = JSON.parse(sessionStorage.getItem('user') || 'null');
+
+    if (!user) {
+      callback(0);
+      return;
+    }
+
+    const userId = user.customer_id;
+
+    this.http.post('http://localhost/tazerhstore/cart.php', { userId })
+      .subscribe(
+        (data: any) => {
+          this.logcart = data.msg || [];
+          const totalQuantity = this.logcart.reduce(
+            (total: number, order: any) => total + order.orderedQuantity,
+            0
+          );
+          callback(totalQuantity);
+        },
+        (error: any) => {
+          console.log(error);
+          callback(0);
+        }
+      );
   }
-  
 
-
-  
-
-
-
-
-
+  // ✅ Optional helper to increase/decrease cart for guests and update observable
+  public setGuestCart(cart: any[]) {
+    this.guestCart = cart;
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('guestCart', JSON.stringify(this.guestCart));
+    }
+    this.updateCartCount();
+  }
 }

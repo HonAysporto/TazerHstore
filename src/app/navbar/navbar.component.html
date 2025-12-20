@@ -1,180 +1,94 @@
+<nav class="navbar navbar-expand-lg custom-navbar px-4 py-3">
 
-<div class="navbar">
-  
-  <nav class="navbar navbar-expand-lg bg-body-secondary py-3 px-4">
-    <div class="container-fluid d-flex justify-content-center">
-      <a class="navbar-brand fs-3 text-secondary fw-bolder" href="#">Tazerh Store</a>
-    
-      <!-- Center Search Bar -->
-      <div class="d-none d-lg-block mx-auto col-7 ms-3">
-        <form class="d-flex">
-          <input
-            class="form-control form-control-lg"
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="ms-2 btn btn-outline-secondary">Search</button>
-        </form>
-      </div>
+  <div class="container-fluid align-items-center">
 
-      <!-- Buttons/Links -->
-      <div>
-        <ul class="navbar-nav d-flex flex-row gap-3">
-          <!-- Large Screen Account Dropdown -->
-          <li class="nav-item dropdown d-lg-inline d-none">
-            <a
-              *ngIf="!authserviceService.isLoggedIn()"
-              class="nav-link dropdown-toggle d-flex justify-content-center align-items-center"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                class="accountimg"
-                src="https://img.icons8.com/?size=50&id=11727&format=png"
-                alt=""
-              />
-              <span class="ms-1 d-none d-lg-block">Account</span>
-            </a>
-            <a
-              *ngIf="authserviceService.isLoggedIn()"
-              class="nav-link dropdown-toggle d-flex justify-content-center align-items-center"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                class="accountimg"
-                src="https://img.icons8.com/?size=50&id=11727&format=png"
-                alt=""
-              />
-              <span class="ms-1 d-none d-lg-block">Hi, {{ user.firstname }}</span>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li *ngIf="!authserviceService.isLoggedIn()">
-                <a class="dropdown-item" routerLink="/customersignin">
-                  <button class="btn btn-outline-primary">Sign In</button>
-                </a>
-              </li>
-              <li><a class="dropdown-item" href="#">Saved items</a></li>
-              <li
-                class="dropdown-item"
-                *ngIf="authserviceService.isLoggedIn()"
-              >
-                <button
-                  class="btn btn-outline-primary"
-                  (click)="logout()"
-                >
-                  Log Out
-                </button>
-              </li>
-            </ul>
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold text-primary fs-3" routerLink="/">
+      Tazerh<span class="text-dark">Store</span>
+    </a>
+
+    <!-- DESKTOP SEARCH -->
+    <div class="search-wrapper d-none d-lg-flex mx-auto col-6">
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search for products..."
+      />
+      <button class="btn btn-primary search-btn">Search</button>
+    </div>
+
+    <!-- RIGHT ACTIONS -->
+    <ul class="navbar-nav d-flex flex-row align-items-center gap-4">
+
+      <!-- ACCOUNT -->
+      <li class="nav-item dropdown d-none d-lg-block">
+        <a
+          class="nav-link d-flex align-items-center gap-2"
+          data-bs-toggle="dropdown"
+        >
+          <img class="nav-icon" src="https://img.icons8.com/?size=48&id=11727&format=png">
+          <span  class="fw-medium ">
+            {{ authserviceService.isLoggedIn() ? 'Hi, ' + user.firstname : 'Account' }}
+          </span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+          <li *ngIf="!authserviceService.isLoggedIn()">
+            <a class="dropdown-item" routerLink="/customersignin">Sign In</a>
           </li>
-
-          <!-- Cart -->
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              aria-current="page"
-              href=""
-              
-            >
-             
-              <mat-icon matBadge={{countno}} matBadgeColor="warn"> <img
-              
-                class="accountimg"
-                src="https://img.icons8.com/?size=24&id=85080&format=png"
-                alt=""
-              /></mat-icon>
-              
-            </a>
-          </li>
-
-          <!-- Small Screen Menu Toggle -->
-          <li class="nav-item d-lg-none">
-            <a
-              class="nav-link"
-              role="button"
-              (click)="toggleMobileMenu()"
-            >
-              <img
-                *ngIf="!authserviceService.isLoggedIn()"
-                class="accountimg"
-                src="https://img.icons8.com/?size=50&id=11727&format=png"
-                alt=""
-              />
-              <img
-                *ngIf="authserviceService.isLoggedIn()"
-                class="accountimg"
-                src="https://img.icons8.com/?size=50&id=11727&format=png"
-                alt=""
-              />
-              <span *ngIf="authserviceService.isLoggedIn()">Hi, {{ user.firstname }}</span>
-            </a>
+          <li><a class="dropdown-item">Saved Items</a></li>
+          <li *ngIf="authserviceService.isLoggedIn()">
+            <button class="dropdown-item text-danger" (click)="logout()">Log Out</button>
           </li>
         </ul>
-      </div>
-    </div>
+      </li>
 
-    <!-- Search Bar for Small Screens -->
-    <div class="d-lg-none px-3 mt-2 col-11 mx-auto">
-      <form class="d-flex">
-        <input
-          class="form-control"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success">Search</button>
-      </form>
-    </div>
-  </nav>
+      <!-- CART -->
+      <li class="nav-item position-relative">
+        <a routerLink="/cart" class="nav-link cart-link">
+          <img class="nav-icon" src="https://img.icons8.com/?size=24&id=85080&format=png">
+          <span class="cart-badge">{{ countno }}</span>
+        </a>
+      </li>
 
-  <!-- Full-Screen Mobile Dropdown -->
-  <div
-    class="mobile-menu-overlay"
-    [class.show]="mobileMenuOpen"
-  >
-    <div class="mobile-menu-content">
-      <button
-        class="btn-close"
-        (click)="toggleMobileMenu()"
-      ></button>
-      <ul class="list-unstyled text-center">
-        <li>
-          <a
-            *ngIf="!authserviceService.isLoggedIn()"
-            routerLink="/customersignin"
-            class="btn btn-outline-primary w-100 mb-3"
-            (click)="toggleMobileMenu()"
-          >
-            Sign In
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="btn btn-outline-secondary w-100 mb-3"
-            (click)="toggleMobileMenu()"
-          >
-            Saved Items
-          </a>
-        </li>
-        <li>
-          <button
-            *ngIf="authserviceService.isLoggedIn()"
-            class="btn btn-outline-danger w-100"
-            (click)="logout(); toggleMobileMenu()"
-          >
-            Log Out
-          </button>
-        </li>
-      </ul>
-    </div>
+      <!-- MOBILE MENU -->
+      <li class="nav-item d-lg-none">
+        <button class="btn mobile-menu-btn" (click)="toggleMobileMenu()">
+          ☰
+        </button>
+      </li>
+
+    </ul>
+
+  </div>
+
+  <!-- MOBILE SEARCH -->
+  <div class="mobile-search d-lg-none mt-3 px-3">
+    <input class="form-control" placeholder="Search products..." />
+  </div>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu-overlay" [class.show]="mobileMenuOpen">
+  <div class="mobile-menu-card">
+    <button class="btn-close ms-auto" (click)="toggleMobileMenu()"></button>
+
+    <h5 class="fw-bold mb-4">
+      {{ authserviceService.isLoggedIn() ? 'Hi, ' + user.firstname : 'Welcome' }}
+    </h5>
+
+    <a routerLink="/customersignin" *ngIf="!authserviceService.isLoggedIn()"
+       class="btn btn-outline-primary w-100 mb-3"
+       (click)="toggleMobileMenu()">
+      Sign In
+    </a>
+
+    <a class="btn btn-outline-secondary w-100 mb-3">Saved Items</a>
+
+    <button *ngIf="authserviceService.isLoggedIn()"
+      class="btn btn-outline-danger w-100"
+      (click)="logout(); toggleMobileMenu()">
+      Log Out
+    </button>
   </div>
 </div>

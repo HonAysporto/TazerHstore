@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
+
 
 @Component({
   selector: 'app-addproducts',
@@ -20,11 +23,13 @@ export class AddproductsComponent {
 
   private _snackBar = inject(MatSnackBar);
 
-  ngOnInit() {
-    this.seller = JSON.parse(localStorage.getItem('seller')!);
+ngOnInit() {
+  if (isPlatformBrowser(this.platformId)) {
+    this.seller = JSON.parse(localStorage.getItem('seller') || '{}');
   }
+}
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient,  @Inject(PLATFORM_ID) private platformId: Object) {
     this.addProductForm = this.fb.group({
       productName: ['', Validators.required],
       category: ['', Validators.required],

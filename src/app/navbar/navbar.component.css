@@ -1,46 +1,100 @@
-.navbar {
-    position: sticky;
-    top: -10px;
-    width: 100%;
-    z-index: 100;
-    margin-top: 0px;
+/* NAVBAR */
+.custom-navbar {
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.accountimg {
-    width: 20px;
-   color: black;
+.fw-medium {
+  cursor: pointer;
 }
 
+/* LOGO */
+.navbar-brand span {
+  font-weight: 600;
+}
+
+/* SEARCH */
+.search-wrapper {
+  background: #f0f4ff;
+  border-radius: 50px;
+  padding: 4px;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  padding-left: 20px;
+}
+
+.search-input:focus {
+  box-shadow: none;
+}
+
+.search-btn {
+  border-radius: 40px;
+  padding: 0 20px;
+}
+
+/* ICONS */
+.nav-icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* CART BADGE */
+.cart-link {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #dc3545;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* MOBILE */
+.mobile-menu-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+}
+
+/* MOBILE OVERLAY */
 .mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1050;
-  }
-  
-  .mobile-menu-overlay.show {
-    display: flex;
-  }
-  
-  .mobile-menu-content {
-    text-align: center;
-  }
-  
-  .btn-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.mobile-menu-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+
+.mobile-menu-card {
+  background: #fff;
+  width: 85%;
+  max-width: 350px;
+  height: 100%;
+  padding: 2rem;
+  animation: slideIn 0.4s ease;
+}
+
+/* ANIMATION */
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}

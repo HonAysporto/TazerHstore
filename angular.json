@@ -28,14 +28,9 @@
             ],
             "styles": [
               "src/styles.css",
-               "@angular/material/prebuilt-themes/indigo-pink.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -59,7 +54,7 @@
               "sourceMap": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -98,5 +93,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "82e5e6e0-296e-40ed-84d1-992a59a4c342"
   }
 }
