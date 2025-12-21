@@ -27,7 +27,7 @@ export class CartpageComponent implements OnInit {
     const buyer = sessionStorage.getItem('user');
 
     if (!buyer) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/customersignin']);
       return;
     }
 

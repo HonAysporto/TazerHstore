@@ -10,8 +10,10 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
 import { ViewordersComponent } from './vieworders/vieworders.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { AddproductsComponent } from './addproducts/addproducts.component';
-import { sellerguardGuard } from './gaurds/sellerguard.guard';
 import { CartpageComponent } from './cartpage/cartpage.component';
+import { sellerguardGuard } from './guards/sellerguard.guard';
+import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
+import { customersguardGuard } from './guards/customersguard.guard';
 
 export const routes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -19,7 +21,9 @@ export const routes: Routes = [
   { path: 'customersignup', component: CustomersignupComponent },
   { path: 'sellersignup', component: SellersignupComponent },
   { path: 'sellerlogin', component: SellerssigninComponent },
+  { path: 'customerprofile', component: CustomerprofileComponent, canActivate:[customersguardGuard] },
   { path: 'cart', component: CartpageComponent },
+ 
   {
       path: 'dashboard',
       component: DashboardComponentComponent,  canActivate:[sellerguardGuard],
@@ -34,7 +38,9 @@ export const routes: Routes = [
           { path: 'add-products', component: AddproductsComponent },
       ],
   },
-  { path: ':id', component: ProductdetailsPageComponent }, // Place this last
+
+  { path: ':id', component: ProductdetailsPageComponent }, 
+     { path: '**', component: LandingpageComponent }
 ];
 
 // canActivate:[studentGuard],

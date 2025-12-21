@@ -36,7 +36,7 @@
           <li *ngIf="!authserviceService.isLoggedIn()">
             <a class="dropdown-item" routerLink="/customersignin">Sign In</a>
           </li>
-          <li><a class="dropdown-item">Saved Items</a></li>
+          <li><button class="dropdown-item text-dark" routerLink="/customerprofile" >Profile</button></li>
           <li *ngIf="authserviceService.isLoggedIn()">
             <button class="dropdown-item text-danger" (click)="logout()">Log Out</button>
           </li>
@@ -83,7 +83,7 @@
       Sign In
     </a>
 
-    <a class="btn btn-outline-secondary w-100 mb-3">Saved Items</a>
+    <a class="btn btn-outline-secondary w-100 mb-3"><button class="dropdown-item text-dark" routerLink="/customerprofile" >Profile</button></a>
 
     <button *ngIf="authserviceService.isLoggedIn()"
       class="btn btn-outline-danger w-100"

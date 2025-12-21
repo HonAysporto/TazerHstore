@@ -1,0 +1,101 @@
+ <app-navbar></app-navbar>
+<div class="container mt-4">
+    <h3>Profile Settings</h3>
+    <hr />
+  
+    <!-- Profile Details Form -->
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label">Firstame</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="firstname"
+            placeholder="Enter your Firstname"
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="name" class="form-label">Lastname</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="lastname"
+              placeholder="Enter your lastname"
+            />
+          </div>
+        <div class="col-md-6 mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter your email"
+            readonly
+          />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="contact" class="form-label">Contact Number</label>
+          <input
+            type="text"
+            id="contact"
+            class="form-control"
+            formControlName="phonenumber"
+            placeholder="Enter your contact number"
+          />
+        </div>
+     
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">
+        Save Changes
+      </button>
+    </form>
+  
+    <hr class="mt-5" />
+  
+    <!-- Change Password Form -->
+    <h4>Change Password</h4>
+    <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+      <div class="mb-3">
+        <label for="oldPassword" class="form-label">Old Password</label>
+        <input
+          type="password"
+          id="oldPassword"
+          class="form-control"
+          formControlName="oldPassword"
+          placeholder="Enter your old password"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="newPassword" class="form-label">New Password</label>
+        <input
+          type="password"
+          id="newPassword"
+          class="form-control"
+          formControlName="newPassword"
+          placeholder="Enter your new password"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          formControlName="confirmPassword"
+          placeholder="Confirm your new password"
+        />
+      </div>
+      <button type="submit" class="btn btn-danger" [disabled]="passwordForm.invalid">
+        Change Password
+      </button>
+    </form>
+  </div>
+  

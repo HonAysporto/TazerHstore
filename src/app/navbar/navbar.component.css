@@ -75,6 +75,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
+  z-index: 10000;
 }
 
 .mobile-menu-overlay.show {
