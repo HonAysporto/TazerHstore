@@ -20,6 +20,7 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
   public relatedProducts: any[] = [];
   public orderedQuantity: number = 1;
 
+
   constructor(
     public activatedroute: ActivatedRoute,
     public productservice: ProductService,
@@ -60,23 +61,39 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
     const storedProduct = localStorage.getItem('selectedproduct');
     this.product = storedProduct ? JSON.parse(storedProduct) : {};
     console.log('Loaded product:', this.product);
+   
 
-    this.http.get('https://fakestoreapi.com/products').subscribe(
-      (data: any) => {
-        console.log('Related products:', data);
-        this.relatedProducts = data;
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
+    const payload = {
+  category: this.product.category,
+  product_id: this.product.productid
+
+};
+
+    this.http.post<any>(
+  'http://localhost/tazerhstore/relatedproducts.php',
+  payload
+).subscribe(res => {
+  console.log(res);
+
+  if (res.status) {
+    this.relatedProducts = res.data; 
+  } else {
+    this.relatedProducts = [];
+  }
+});
+
+
+  
   }
 
   pdetails(product: any) {
     if (!isPlatformBrowser(this.platformId)) return;
+    console.log(product);
+    
 
     localStorage.setItem('selectedproduct', JSON.stringify(product));
-    this.route.navigate([`/${product.title}`]);
+    // this.route.navigate([`/${product.productname}`]);
+      this.loadProduct() 
   }
 
   addToCart(productId: any, quantity: number) {

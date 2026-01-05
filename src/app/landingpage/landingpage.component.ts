@@ -39,7 +39,7 @@ export class LandingpageComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    this.http.get('http://localhost/tazerhstore/getallproducts.php')
+    this.http.get('https://tazerhstorephp.onrender.com/getallproducts.php')
       .subscribe((data: any) => {
         console.log(data);
         this.products = data.msg;

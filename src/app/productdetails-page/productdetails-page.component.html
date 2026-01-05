@@ -24,7 +24,7 @@
         <p class="product-desc">{{ product.description }}</p>
 
         <div class="price-stock">
-          <h3 class="price">₦{{ product.price | number }}</h3>
+          <h3 class="price">${{ product.price | number }}</h3>
           <span *ngIf="product.quantity" class="stock">
             {{ product.quantity }} pieces left
           </span>
@@ -75,7 +75,7 @@
             </div>
 
             <div class="related-info text-center">
-              <h6 class="text-truncate">{{ item.title }}</h6>
+              <h6 class="text-truncate">{{ item.productname }}</h6>
               <span class="price">₦{{ item.price | number }}</span>
             </div>
           </div>
