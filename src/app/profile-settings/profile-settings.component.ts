@@ -57,7 +57,7 @@ export class ProfileSettingsComponent {
     if (this.profileForm.valid) {
       const details = { ...this.profileForm.value, sellerid: this.seller.sellers_id };
 
-      this.http.post('http://localhost/tazerhstore/updateprofile.php', details).subscribe(
+      this.http.post('https://tazerhstorephp.onrender.com/updateprofile.php', details).subscribe(
         (data: any) => {
           console.log(data);
           this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
@@ -86,7 +86,7 @@ export class ProfileSettingsComponent {
       if (newPassword === confirmPassword) {
         const details = { ...this.passwordForm.value, sellerid: this.seller.sellers_id };
 
-        this.http.post('http://localhost/tazerhstore/updatepassword.php', details).subscribe(
+        this.http.post('https://tazerhstorephp.onrender.com/updatepassword.php', details).subscribe(
           (data: any) => {
             console.log(data);
             this._snackBar.open(data.msg, 'Continue', { duration: 3000 });

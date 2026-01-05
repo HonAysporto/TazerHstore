@@ -70,7 +70,7 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
 };
 
     this.http.post<any>(
-  'http://localhost/tazerhstore/relatedproducts.php',
+  'https://tazerhstorephp.onrender.com/relatedproducts.php',
   payload
 ).subscribe(res => {
   console.log(res);
@@ -128,7 +128,7 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
 
   addToCartLoggedIn(userId: any, productId: number, quantity: number) {
     const details = { userId, productId, orderedQuantity: this.orderedQuantity };
-    this.http.post('http://localhost/tazerhstore/savecart.php', details).subscribe(
+    this.http.post('https://tazerhstorephp.onrender.com/savecart.php', details).subscribe(
       (data: any) => {
         console.log('Cart saved:', data);
       },

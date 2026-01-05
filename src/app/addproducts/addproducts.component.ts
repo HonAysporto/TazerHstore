@@ -64,7 +64,7 @@ ngOnInit() {
             sellerid: this.seller.sellers_id,
           };
 
-          this.http.post('http://localhost/tazerhstore/addproduct.php', productData).subscribe(
+          this.http.post('https://tazerhstorephp.onrender.com/addproduct.php', productData).subscribe(
             (data: any) => {
               this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
               this.addProductForm.reset();

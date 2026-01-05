@@ -48,7 +48,7 @@ export class CustomersignupComponent {
     
 
     
-     this.http.post('http://localhost/tazerhstore/customersignup.php', customerinfo).subscribe((data:any)=> {
+     this.http.post('https://tazerhstorephp.onrender.com/customersignup.php', customerinfo).subscribe((data:any)=> {
       console.log(data);
       this._snackBar.open(data.msg, 'continue', {
         duration: 3000

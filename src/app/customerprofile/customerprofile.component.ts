@@ -58,7 +58,7 @@ export class CustomerprofileComponent {
     if (this.profileForm.valid) {
       const details = { ...this.profileForm.value, buyerid: this.buyer.customer_id };
 
-      this.http.post('http://localhost/tazerhstore/updatecustomerprofile.php', details).subscribe(
+      this.http.post('https://tazerhstorephp.onrender.com/updatecustomerprofile.php', details).subscribe(
         (data: any) => {
           console.log(data);
           this._snackBar.open(data.msg, 'Continue', { duration: 3000 });

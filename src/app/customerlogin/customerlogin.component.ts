@@ -38,7 +38,7 @@ export class CustomerloginComponent {
       ...this.formone.value
     };
 
-    this.http.post('http://localhost/tazerhstore/customersignin.php', customerinfo)
+    this.http.post('https://tazerhstorephp.onrender.com/customersignin.php', customerinfo)
       .subscribe((data: any) => {
         console.log(data);
         this._snackBar.open(data.msg, 'continue', { duration: 3000 });
@@ -66,7 +66,7 @@ export class CustomerloginComponent {
     const guestCart = guestCartStr ? JSON.parse(guestCartStr) : [];
 
     if (guestCart.length > 0) {
-      this.http.post('http://localhost/tazerhstore/cart.php', { userId })
+      this.http.post('https://tazerhstorephp.onrender.com/cart.php', { userId })
         .subscribe((data: any) => {
           console.log(data);
           const userCart = data.msg || [];

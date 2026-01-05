@@ -38,7 +38,7 @@ export class SellerssigninComponent {
 
     const details = { ...this.formone.value };
 
-    this.http.post('http://localhost/tazerhstore/sellersignin.php', details)
+    this.http.post('https://tazerhstorephp.onrender.com/sellersignin.php', details)
       .subscribe({
         next: (data: any) => {
           console.log(data);

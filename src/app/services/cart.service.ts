@@ -61,7 +61,7 @@ export class CartService {
 
     const userId = user.customer_id;
 
-    this.http.post('http://localhost/tazerhstore/cart.php', { userId })
+    this.http.post('https://tazerhstorephp.onrender.com//cart.php', { userId })
       .subscribe(
         (data: any) => {
           this.logcart = data.msg || [];

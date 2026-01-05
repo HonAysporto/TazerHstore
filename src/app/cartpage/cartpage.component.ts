@@ -39,7 +39,7 @@ export class CartpageComponent implements OnInit {
     const buyer_id = buyer.customer_id;
     this.loading = true;
 
-    this.http.post<any>('http://localhost/tazerhstore/displaycart.php', { buyer_id })
+    this.http.post<any>('https://tazerhstorephp.onrender.com/displaycart.php', { buyer_id })
       .subscribe({
         next: res => {
           if (res.status) {
@@ -72,7 +72,7 @@ export class CartpageComponent implements OnInit {
   }
 
   updateQuantity(item: any) {
-    this.http.post('http://localhost/tazerhstore/updateusercart.php', {
+    this.http.post('https://tazerhstorephp.onrender.com/updateusercart.php', {
       cart_id: item.cart_id,
       quantity: item.quantity
     }).subscribe(() => {
@@ -82,7 +82,7 @@ export class CartpageComponent implements OnInit {
   }
 
   removeItem(cart_id: number) {
-    this.http.post('http://localhost/tazerhstore/deletecart.php', { cart_id })
+    this.http.post('https://tazerhstorephp.onrender.com/deletecart.php', { cart_id })
       .subscribe(() => {
         this.fetchCart();
         this.cartService.updateCartCount(); // 🔥 update navbar immediately
