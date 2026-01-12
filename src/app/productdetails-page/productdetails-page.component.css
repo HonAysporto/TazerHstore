@@ -114,3 +114,50 @@
     max-height: 280px;
   }
 }
+
+
+
+
+
+/* SKELETON LOADING */
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-img {
+  height: 160px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #eef3ff 25%,
+    #e0e7ff 37%,
+    #eef3ff 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 12px;
+}
+
+.skeleton-text {
+  height: 14px;
+  margin: 12px auto 6px;
+  width: 80%;
+  background: #e0e7ff;
+  border-radius: 6px;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-text.small {
+  width: 50%;
+  height: 12px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+

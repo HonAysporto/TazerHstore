@@ -19,7 +19,13 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
   public product: any = {};
   public relatedProducts: any[] = [];
   public orderedQuantity: number = 1;
+  public relatedLoading: boolean = true;
 
+public dummyRelatedProducts = Array(8).fill({
+  productname: 'Loading...',
+  price: 0,
+  image: ''
+});
 
   constructor(
     public activatedroute: ActivatedRoute,
@@ -69,16 +75,23 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
 
 };
 
-    this.http.post<any>(
+this.relatedLoading = true;
+
+this.http.post<any>(
   'https://tazerhstorephp.onrender.com/relatedproducts.php',
   payload
-).subscribe(res => {
-  console.log(res);
-
-  if (res.status) {
-    this.relatedProducts = res.data; 
-  } else {
+).subscribe({
+  next: (res) => {
+    if (res.status) {
+      this.relatedProducts = res.data;
+    } else {
+      this.relatedProducts = [];
+    }
+    this.relatedLoading = false;
+  },
+  error: () => {
     this.relatedProducts = [];
+    this.relatedLoading = false;
   }
 });
 
