@@ -50,46 +50,52 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
           <!-- SKELETON LOADING -->
-  <ng-container *ngIf="productsLoading; else products">
-    <div class="col" *ngFor="let item of dummyProducts">
-      <div class="product-card skeleton-card">
+ <ng-container *ngIf="productsLoading; else productsTpl">
+  <div class="col" *ngFor="let item of dummyProducts">
+    <div class="product-card skeleton-card">
 
-        <div class="product-image-box skeleton-img"></div>
+      <div class="product-image-box skeleton-img"></div>
 
-        <div class="product-info text-center">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text small"></div>
-          <div class="skeleton-price"></div>
-        </div>
-
+      <div class="product-info text-center">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text small"></div>
+        <div class="skeleton-price"></div>
       </div>
+
     </div>
-  </ng-container>
+  </div>
+</ng-container>
 
-        <div *ngFor="let product of products; let i = index" class="col">
+     <ng-template #productsTpl>
+  <div *ngFor="let product of products; let i = index" class="col">
 
-          <div class="product-card reaveal" (click)="pdetails(product)" [style.transitionDelay]="i * 80 + 'ms'">
+    <div
+      class="product-card reaveal"
+      (click)="pdetails(product)"
+      [style.transitionDelay]="i * 80 + 'ms'"
+    >
 
-            <!-- IMAGE -->
-            <div class="product-image-box">
-              <img [src]="product.image" alt="Product Image" loading="lazy">
-              <span class="shop-badge">{{ product.shopname }}</span>
-            </div>
+      <!-- IMAGE -->
+      <div class="product-image-box">
+        <img [src]="product.image" alt="Product Image" loading="lazy">
+        <span class="shop-badge">{{ product.shopname }}</span>
+      </div>
 
-            <!-- DETAILS -->
-            <div class="product-info text-center">
-              <h6 class="product-title">{{ product.productname }}</h6>
-              <p class="product-desc">
-                {{ product.description }}
-              </p>
-              <div class="price">
-                ${{ product.price | number }}
-              </div>
-            </div>
-
-          </div>
-
+      <!-- DETAILS -->
+      <div class="product-info text-center">
+        <h6 class="product-title">{{ product.productname }}</h6>
+        <p class="product-desc">
+          {{ product.description }}
+        </p>
+        <div class="price">
+          ${{ product.price | number }}
         </div>
+      </div>
+
+    </div>
+
+  </div>
+</ng-template>
 
       </div>
 
