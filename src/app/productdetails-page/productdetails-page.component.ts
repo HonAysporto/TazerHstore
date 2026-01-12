@@ -107,7 +107,9 @@ export class ProductdetailsPageComponent  implements AfterViewInit {
       this.addToCartGuest(productId, quantity);
      
     }
-     window.location.reload();
+     setTimeout(() => {
+    window.location.reload();
+  }, 2000);
   }
 
   addToCartGuest(productId: number, quantity: number) {
