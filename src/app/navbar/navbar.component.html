@@ -9,11 +9,13 @@
 
     <!-- DESKTOP SEARCH -->
     <div class="search-wrapper d-none d-lg-flex mx-auto col-6">
-      <input
-        type="text"
-        class="form-control search-input"
-        placeholder="Search for products..."
-      />
+     <input
+  type="text"
+  class="form-control search-input"
+  placeholder="Search for products..."
+  (input)="onSearch($event)"
+/>
+
       <button class="btn btn-primary search-btn">Search</button>
     </div>
 
@@ -64,7 +66,12 @@
 
   <!-- MOBILE SEARCH -->
   <div class="mobile-search d-lg-none mt-3 px-3">
-    <input class="form-control" placeholder="Search products..." />
+    <input
+  class="form-control"
+  placeholder="Search products..."
+  (input)="onSearch($event)"
+/>
+
   </div>
 </nav>
 

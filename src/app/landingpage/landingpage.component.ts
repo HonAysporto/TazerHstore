@@ -4,6 +4,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef, inject, Inject, PLATFO
 import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ProductService } from '../product.service';
+import { SearchService } from '../services/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-landingpage',
@@ -16,8 +18,10 @@ export class LandingpageComponent implements AfterViewInit {
 
   public products: any[] = [];
   private platformId: Object = inject(PLATFORM_ID);
-
   public productsLoading: boolean = true;
+  public filteredProducts: any[] = [];
+  public searchSub!: Subscription;
+  
 
 
 public dummyProducts = Array(8).fill({
@@ -31,7 +35,9 @@ public dummyProducts = Array(8).fill({
   constructor(
     public http: HttpClient,
     public route: Router,
-    public productservice: ProductService
+    public productservice: ProductService,
+    
+    private searchService: SearchService
   ) {}
 
    ngAfterViewInit() {
@@ -57,13 +63,36 @@ public dummyProducts = Array(8).fill({
       next: (data: any) => {
         this.products = data.msg || [];
         this.productsLoading = false;
+         this.filteredProducts = [...this.products];
       },
       error: () => {
         this.products = [];
         this.productsLoading = false;
       }
     });
+
+    this.searchSub = this.searchService.searchTerm$
+    .subscribe(term => {
+      this.applySearch(term);
+    });
 }
+
+applySearch(term: string) {
+  this.filteredProducts = this.products.filter(product =>
+    product.productname
+      .toLowerCase()
+      .includes(term.toLowerCase())
+  );
+}
+
+
+ngOnDestroy() {
+  if (this.searchSub) {
+    this.searchSub.unsubscribe();
+  }
+}
+
+
 
 
   pdetails(product: any) {

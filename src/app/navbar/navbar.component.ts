@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CartService } from '../services/cart.service';
 import { Subscription } from 'rxjs';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,8 @@ export class NavbarComponent {
   constructor(
     public authserviceService: AuthserviceService,
     public activatedroute: ActivatedRoute,
-    public cartservice: CartService
+    public cartservice: CartService,
+    private searchService: SearchService
   ) {}
 
   toggleMobileMenu() {
@@ -52,4 +54,11 @@ export class NavbarComponent {
       this.cartSub.unsubscribe();
     }
   }
+
+  onSearch(event: Event) {
+  const value = (event.target as HTMLInputElement).value;
+  this.searchService.setSearchTerm(value);
+}
+
+
 }
