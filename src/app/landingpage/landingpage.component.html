@@ -49,13 +49,30 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
+          <!-- SKELETON LOADING -->
+  <ng-container *ngIf="productsLoading; else realProducts">
+    <div class="col" *ngFor="let item of dummyProducts">
+      <div class="product-card skeleton-card">
+
+        <div class="product-image-box skeleton-img"></div>
+
+        <div class="product-info text-center">
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text small"></div>
+          <div class="skeleton-price"></div>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
         <div *ngFor="let product of products; let i = index" class="col">
 
           <div class="product-card reaveal" (click)="pdetails(product)" [style.transitionDelay]="i * 80 + 'ms'">
 
             <!-- IMAGE -->
             <div class="product-image-box">
-              <img [src]="product.image" alt="Product Image">
+              <img [src]="product.image" alt="Product Image" loading="lazy">
               <span class="shop-badge">{{ product.shopname }}</span>
             </div>
 

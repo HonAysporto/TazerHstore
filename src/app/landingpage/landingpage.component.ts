@@ -17,6 +17,17 @@ export class LandingpageComponent implements AfterViewInit {
   public products: any[] = [];
   private platformId: Object = inject(PLATFORM_ID);
 
+  public productsLoading: boolean = true;
+
+
+public dummyProducts = Array(8).fill({
+  productname: '',
+  description: '',
+  price: 0,
+  image: '',
+  shopname: ''
+});
+
   constructor(
     public http: HttpClient,
     public route: Router,
@@ -38,15 +49,22 @@ export class LandingpageComponent implements AfterViewInit {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
 
-  ngOnInit() {
-    this.http.get('https://tazerhstorephp.onrender.com/getallproducts.php')
-      .subscribe((data: any) => {
-        console.log(data);
-        this.products = data.msg;
-      }, (error: any) => {
-        console.log(error);
-      });
-  }
+ ngOnInit() {
+  this.productsLoading = true;
+
+  this.http.get('https://tazerhstorephp.onrender.com/getallproducts.php')
+    .subscribe({
+      next: (data: any) => {
+        this.products = data.msg || [];
+        this.productsLoading = false;
+      },
+      error: () => {
+        this.products = [];
+        this.productsLoading = false;
+      }
+    });
+}
+
 
   pdetails(product: any) {
     this.productservice.setProduct(product);
