@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-customersignup',
@@ -48,7 +49,7 @@ export class CustomersignupComponent {
     
 
     
-     this.http.post('https://tazerhstorephp.onrender.com/customersignup.php', customerinfo).subscribe((data:any)=> {
+     this.http.post(`${ENDPOINT.baseUrl}/customersignup.php`, customerinfo).subscribe((data:any)=> {
       console.log(data);
       this._snackBar.open(data.msg, 'continue', {
         duration: 3000

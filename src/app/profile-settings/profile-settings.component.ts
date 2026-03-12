@@ -4,6 +4,7 @@ import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isPlatformBrowser } from '@angular/common';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-profile-settings',
@@ -57,7 +58,7 @@ export class ProfileSettingsComponent {
     if (this.profileForm.valid) {
       const details = { ...this.profileForm.value, sellerid: this.seller.sellers_id };
 
-      this.http.post('https://tazerhstorephp.onrender.com/updateprofile.php', details).subscribe(
+      this.http.post(`${ENDPOINT.baseUrl}/updateprofile.php`, details).subscribe(
         (data: any) => {
           console.log(data);
           this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
@@ -86,7 +87,7 @@ export class ProfileSettingsComponent {
       if (newPassword === confirmPassword) {
         const details = { ...this.passwordForm.value, sellerid: this.seller.sellers_id };
 
-        this.http.post('https://tazerhstorephp.onrender.com/updatepassword.php', details).subscribe(
+        this.http.post(`${ENDPOINT.baseUrl}/updatepassword.php`, details).subscribe(
           (data: any) => {
             console.log(data);
             this._snackBar.open(data.msg, 'Continue', { duration: 3000 });

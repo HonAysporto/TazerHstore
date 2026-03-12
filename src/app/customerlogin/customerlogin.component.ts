@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthserviceService } from '../services/authservice.service';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-customerlogin',
@@ -38,7 +39,7 @@ export class CustomerloginComponent {
       ...this.formone.value
     };
 
-    this.http.post('https://tazerhstorephp.onrender.com/customersignin.php', customerinfo)
+    this.http.post(`${ENDPOINT.baseUrl}/customersignin.php`, customerinfo)
       .subscribe((data: any) => {
         console.log(data);
         this._snackBar.open(data.msg, 'continue', { duration: 3000 });
@@ -66,7 +67,7 @@ export class CustomerloginComponent {
     const guestCart = guestCartStr ? JSON.parse(guestCartStr) : [];
 
     if (guestCart.length > 0) {
-      this.http.post('https://tazerhstorephp.onrender.com/cart.php', { userId })
+      this.http.post(`${ENDPOINT.baseUrl}/cart.php`, { userId })
         .subscribe((data: any) => {
           console.log(data);
           const userCart = data.msg || [];
@@ -104,7 +105,7 @@ export class CustomerloginComponent {
   }
 
   saveMergedCart(userId: any, mergedCart: any) {
-    this.http.post('http://localhost/tazerhstore/updatecart.php', { userId, cart: mergedCart })
+    this.http.post(`${ENDPOINT.baseUrl}/updatecart.php`, { userId, cart: mergedCart })
       .subscribe((data: any) => {
         console.log(data);
       }, (error) => {

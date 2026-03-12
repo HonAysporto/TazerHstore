@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isPlatformBrowser } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-customerprofile',
@@ -58,7 +59,7 @@ export class CustomerprofileComponent {
     if (this.profileForm.valid) {
       const details = { ...this.profileForm.value, buyerid: this.buyer.customer_id };
 
-      this.http.post('https://tazerhstorephp.onrender.com/updatecustomerprofile.php', details).subscribe(
+      this.http.post(`${ENDPOINT.baseUrl}/updatecustomerprofile.php`, details).subscribe(
         (data: any) => {
           console.log(data);
           this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
@@ -87,7 +88,7 @@ export class CustomerprofileComponent {
       if (newPassword === confirmPassword) {
         const details = { ...this.passwordForm.value, buyerid: this.buyer.customer_id };
 
-        this.http.post('http://localhost/tazerhstore/updatecustomerpassword.php', details).subscribe(
+        this.http.post(`${ENDPOINT.baseUrl}/updatecustomerpassword.php`, details).subscribe(
           (data: any) => {
             console.log(data);
             this._snackBar.open(data.msg, 'Continue', { duration: 3000 });

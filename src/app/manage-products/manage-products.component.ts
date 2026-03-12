@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-manage-products',
@@ -34,7 +35,7 @@ export class ManageProductsComponent {
     }
 
     // Fetch products
-    this.http.post('https://tazerhstorephp.onrender.com/manageproducts.php', this.seller).subscribe(
+    this.http.post(`${ENDPOINT.baseUrl}/manageproducts.php`, this.seller).subscribe(
       (data: any) => {
         console.log(data);
         this.products = data.msg || [];
@@ -52,7 +53,7 @@ export class ManageProductsComponent {
     const product = { productname };
     this.isDeleting[i] = true;
 
-    this.http.post('https://tazerhstorephp.onrender.com/deleteproduct.php', product).subscribe(
+    this.http.post(`${ENDPOINT.baseUrl}/deleteproduct.php`, product).subscribe(
       (data: any) => {
         console.log(data);
         this.isDeleting[i] = false;
@@ -88,7 +89,7 @@ export class ManageProductsComponent {
 
     this.editloading = true;
 
-    this.http.post('https://tazerhstorephp.onrender.com/updateproduct.php', payload).subscribe(
+    this.http.post(`${ENDPOINT.baseUrl}/updateproduct.php`, payload).subscribe(
       (data: any) => {
         console.log(data);
         this._snackBar.open(data.msg, 'Continue', { duration: 3000 });

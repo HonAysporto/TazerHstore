@@ -6,6 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { ProductService } from '../product.service';
 import { SearchService } from '../services/search.service';
 import { Subscription } from 'rxjs';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-landingpage',
@@ -58,9 +59,11 @@ public dummyProducts = Array(8).fill({
  ngOnInit() {
   this.productsLoading = true;
 
-  this.http.get('https://tazerhstorephp.onrender.com/getallproducts.php')
+  this.http.get(`${ENDPOINT.baseUrl}/getallproducts.php`)
     .subscribe({
       next: (data: any) => {
+      
+        
         this.products = data.msg || [];
         this.productsLoading = false;
          this.filteredProducts = [...this.products];

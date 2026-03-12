@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { ENDPOINT } from '../endpoint';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +62,7 @@ export class CartService {
 
     const userId = user.customer_id;
 
-    this.http.post('https://tazerhstorephp.onrender.com//cart.php', { userId })
+    this.http.post(`${ENDPOINT.baseUrl}//cart.php`, { userId })
       .subscribe(
         (data: any) => {
           this.logcart = data.msg || [];

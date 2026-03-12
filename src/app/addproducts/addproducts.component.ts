@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { ENDPOINT } from '../endpoint';
 
 
 @Component({
@@ -64,7 +65,7 @@ ngOnInit() {
             sellerid: this.seller.sellers_id,
           };
 
-          this.http.post('https://tazerhstorephp.onrender.com/addproduct.php', productData).subscribe(
+          this.http.post(`${ENDPOINT.baseUrl}/addproduct.php`, productData).subscribe(
             (data: any) => {
               this._snackBar.open(data.msg, 'Continue', { duration: 3000 });
               this.addProductForm.reset();

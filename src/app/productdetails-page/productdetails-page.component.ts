@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CartService } from '../services/cart.service';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-productdetails-page',
@@ -78,7 +79,7 @@ public dummyRelatedProducts = Array(8).fill({
 this.relatedLoading = true;
 
 this.http.post<any>(
-  'https://tazerhstorephp.onrender.com/relatedproducts.php',
+  `${ENDPOINT.baseUrl}/relatedproducts.php`,
   payload
 ).subscribe({
   next: (res) => {
@@ -143,7 +144,7 @@ this.http.post<any>(
 
   addToCartLoggedIn(userId: any, productId: number, quantity: number) {
     const details = { userId, productId, orderedQuantity: this.orderedQuantity };
-    this.http.post('https://tazerhstorephp.onrender.com/savecart.php', details).subscribe(
+    this.http.post(`${ENDPOINT.baseUrl}/savecart.php`, details).subscribe(
       (data: any) => {
         console.log('Cart saved:', data);
       },

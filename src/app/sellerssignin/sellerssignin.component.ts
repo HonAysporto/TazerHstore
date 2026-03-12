@@ -4,6 +4,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-sellerssignin',
@@ -38,7 +39,7 @@ export class SellerssigninComponent {
 
     const details = { ...this.formone.value };
 
-    this.http.post('https://tazerhstorephp.onrender.com/sellersignin.php', details)
+    this.http.post(`${ENDPOINT.baseUrl}/sellersignin.php`, details)
       .subscribe({
         next: (data: any) => {
           console.log(data);

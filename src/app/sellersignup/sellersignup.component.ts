@@ -4,6 +4,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
+import { ENDPOINT } from '../endpoint';
 
 @Component({
   selector: 'app-sellersignup',
@@ -42,7 +43,7 @@ signup() {
   // console.log(details);
   
   
-  this.http.post('https://tazerhstorephp.onrender.com/sellersignup.php', details).subscribe((data:any)=> {
+  this.http.post(`${ENDPOINT.baseUrl}/sellersignup.php`, details).subscribe((data:any)=> {
     // console.log(data);
     this.formone.reset()
     this._snackBar.open(data.msg, 'continue', {
