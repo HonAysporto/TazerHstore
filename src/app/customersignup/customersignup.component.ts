@@ -8,11 +8,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ENDPOINT } from '../endpoint';
+import { Navbar2Component } from '../navbar2/navbar2.component';
 
 @Component({
   selector: 'app-customersignup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, Navbar2Component],
   templateUrl: './customersignup.component.html',
   styleUrl: './customersignup.component.css'
 })

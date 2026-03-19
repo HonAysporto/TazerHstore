@@ -5,11 +5,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
 import { ENDPOINT } from '../endpoint';
+import { Navbar2Component } from '../navbar2/navbar2.component';
 
 @Component({
   selector: 'app-sellersignup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, Navbar2Component],
   templateUrl: './sellersignup.component.html',
   styleUrl: './sellersignup.component.css'
 })

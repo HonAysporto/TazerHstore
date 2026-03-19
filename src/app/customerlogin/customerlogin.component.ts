@@ -6,11 +6,12 @@ import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthserviceService } from '../services/authservice.service';
 import { ENDPOINT } from '../endpoint';
+import { Navbar2Component } from '../navbar2/navbar2.component';
 
 @Component({
   selector: 'app-customerlogin',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, Navbar2Component],
   templateUrl: './customerlogin.component.html',
   styleUrls: ['./customerlogin.component.css']
 })
@@ -33,6 +34,49 @@ export class CustomerloginComponent {
       password: ['', Validators.required],
     });
   }
+
+loginWithGoogle() {
+  this.authservice.loginWithGoogle()
+    .then(user => {
+      console.log('Firebase user:', user);
+
+      // 🔥 Send Google user to backend
+      this.http.post(`${ENDPOINT.baseUrl}/google-login.php`, {
+        name: user.name,
+        email: user.email,
+        photo: user.photo
+      }).subscribe((data: any) => {
+        console.log('Backend response:', data);
+
+        if (data.status === true) {
+
+          // ✅ Save backend user (IMPORTANT: includes customer_id)
+          this.authservice.login(data.user);
+
+          // ✅ Merge cart
+          this.handleLoginTransition();
+
+          // ✅ Redirect
+          this.route.navigate(['']);
+
+          // ✅ Success message
+          this._snackBar.open('Login successful', 'OK', { duration: 3000 });
+
+        } else {
+          this._snackBar.open('Google login failed', 'OK', { duration: 3000 });
+        }
+
+      }, (error) => {
+        console.log(error);
+        this._snackBar.open('Server error', 'OK', { duration: 3000 });
+      });
+
+    })
+    .catch(err => {
+      console.error(err);
+      this._snackBar.open('Google login failed', 'OK', { duration: 3000 });
+    });
+}
 
   signin() {
     let customerinfo = {

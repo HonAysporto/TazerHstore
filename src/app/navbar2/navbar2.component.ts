@@ -1,0 +1,63 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { AuthserviceService } from '../services/authservice.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
+import { CartService } from '../services/cart.service';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../services/search.service';
+
+@Component({
+  selector: 'app-navbar2',
+  standalone: true,
+  imports: [RouterLink, CommonModule, MatBadgeModule, MatButtonModule, MatIconModule],
+  templateUrl: './navbar2.component.html',
+  styleUrl: './navbar2.component.css'
+})
+export class Navbar2Component {
+   public countno: number = 0;
+  public user: any = {};
+  public mobileMenuOpen: boolean = false;
+  private cartSub!: Subscription;
+
+  constructor(
+    public authserviceService: AuthserviceService,
+    public activatedroute: ActivatedRoute,
+    public cartservice: CartService,
+    private searchService: SearchService
+  ) {}
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  ngOnInit() {
+    // Subscribe to cart count observable for real-time updates
+    this.cartSub = this.cartservice.cartCount$.subscribe(count => {
+      this.countno = count;
+    
+    });
+
+    // Initialize user
+    this.user = this.authserviceService.getUser();
+  }
+
+  logout() {
+    this.authserviceService.logout();
+  }
+
+  ngOnDestroy() {
+    // Prevent memory leaks
+    if (this.cartSub) {
+      this.cartSub.unsubscribe();
+    }
+  }
+
+    onSearch(event: Event) {
+  const value = (event.target as HTMLInputElement).value;
+  this.searchService.setSearchTerm(value);
+    }
+
+}
