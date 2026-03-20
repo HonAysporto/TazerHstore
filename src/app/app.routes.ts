@@ -14,6 +14,7 @@ import { CartpageComponent } from './cartpage/cartpage.component';
 import { sellerguardGuard } from './guards/sellerguard.guard';
 import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
 import { customersguardGuard } from './guards/customersguard.guard';
+import { CheckoutComponentComponent } from './checkout-component/checkout-component.component';
 
 export const routes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'sellerlogin', component: SellerssigninComponent },
   { path: 'customerprofile', component: CustomerprofileComponent, canActivate:[customersguardGuard] },
   { path: 'cart', component: CartpageComponent },
+  { path: 'checkout', component: CheckoutComponentComponent },
  
   {
       path: 'dashboard',
