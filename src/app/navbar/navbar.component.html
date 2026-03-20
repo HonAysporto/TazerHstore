@@ -8,7 +8,7 @@
     </a>
 
     <!-- DESKTOP SEARCH -->
-    <div class="search-wrapper d-none d-lg-flex mx-auto col-6">
+    <div *ngIf="showSearch" class="search-wrapper d-none d-lg-flex mx-auto col-6">
      <input
   type="text"
   class="form-control search-input"
@@ -65,7 +65,7 @@
   </div>
 
   <!-- MOBILE SEARCH -->
-  <div class="mobile-search d-lg-none mt-3 px-3">
+  <div *ngIf="showSearch" class="mobile-search d-lg-none mt-3 px-3">
     <input
   class="form-control"
   placeholder="Search products..."
