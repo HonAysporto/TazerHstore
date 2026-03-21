@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ENDPOINT } from '../endpoint';
 import { FormsModule } from '@angular/forms';
+import PaystackPop from '@paystack/inline-js';
 
 @Component({
   selector: 'app-checkout-component',
@@ -77,12 +78,57 @@ export class CheckoutComponentComponent implements OnInit {
       });
   }
 
-  proceedToPayment() {
-    if (!this.address) {
-      alert('Please enter delivery address');
-      return;
-    }
+pay() {
 
-    this.router.navigate(['/payment'], { state: { address: this.address } });
+  if (!this.address) {
+    alert('Please enter delivery address');
+    return;
   }
+
+  const buyer = JSON.parse(sessionStorage.getItem('user')!);
+
+  const paystack = new PaystackPop();
+
+  paystack.newTransaction({
+    key: 'pk_test_3e8e875473b3eeaba511a603ebc32603208c6282', // 🔥 replace with your key
+    email: buyer.email,
+    amount: this.total * 100, // Paystack uses kobo
+
+    onSuccess: (transaction: any) => {
+      alert('Payment successful! Ref: ' + transaction.reference);
+
+      // 🔥 Save order after payment
+      this.placeOrder(transaction.reference);
+    },
+
+    onCancel: () => {
+      alert('Payment cancelled');
+    }
+  });
+}
+
+placeOrder(reference: string) {
+
+  const buyer = JSON.parse(sessionStorage.getItem('user')!);
+
+  const payload = {
+    buyer_id: buyer.customer_id,
+    address: this.address,
+    reference: reference
+  };
+
+  this.http.post(`${ENDPOINT.baseUrl}/placeorder.php`, payload)
+    .subscribe({
+      next: () => {
+        alert('Order saved successfully!');
+        this.router.navigate(['/']); // or success page
+      },
+      error: () => {
+        alert('Error saving order');
+      }
+    });
+}
+
+
+  
 }

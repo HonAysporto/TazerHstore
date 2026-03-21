@@ -24,6 +24,7 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.7",
+    "@paystack/inline-js": "^2.22.2",
     "express": "^4.18.2",
     "firebase": "^12.10.0",
     "rxjs": "~7.8.0",
