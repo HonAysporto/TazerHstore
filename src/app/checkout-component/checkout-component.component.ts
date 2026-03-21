@@ -121,7 +121,7 @@ placeOrder(reference: string) {
     .subscribe({
       next: () => {
         alert('Order saved successfully!');
-        this.router.navigate(['/']); // or success page
+        this.router.navigate(['orders']); // or success page
       },
       error: () => {
         alert('Error saving order');

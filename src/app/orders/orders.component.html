@@ -1,0 +1,55 @@
+<app-navbar [showSearch]="false"></app-navbar>
+<div class="container my-5">
+
+  <h3 class="fw-bold mb-4">My Orders</h3>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border"></div>
+  </div>
+
+  <!-- Orders -->
+  <div *ngIf="orders.length && !loading">
+
+    <div class="card order-card mb-4" *ngFor="let order of orders">
+
+      <div class="card-header d-flex justify-content-between">
+        <span><strong>Order #{{ order.order_id }}</strong></span>
+        <span class="badge bg-success">{{ order.status }}</span>
+      </div>
+
+      <div class="card-body">
+
+        <!-- Items -->
+        <div *ngFor="let item of order.items" class="d-flex align-items-center mb-3">
+
+          <img [src]="item.product_image" width="60" class="me-3 rounded">
+
+          <div class="flex-grow-1">
+            <h6 class="mb-1">{{ item.product_name }}</h6>
+            <small>Qty: {{ item.quantity }}</small>
+          </div>
+
+          <strong>₦{{ item.price * item.quantity }}</strong>
+
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between">
+          <span>Total</span>
+          <strong>₦{{ order.total_amount }}</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!orders.length && !loading" class="text-center">
+    <h5>No orders yet</h5>
+  </div>
+
+</div>
