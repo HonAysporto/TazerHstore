@@ -16,6 +16,7 @@ import { CustomerprofileComponent } from './customerprofile/customerprofile.comp
 import { customersguardGuard } from './guards/customersguard.guard';
 import { CheckoutComponentComponent } from './checkout-component/checkout-component.component';
 import { OrdersComponent } from './orders/orders.component';
+import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
 
 export const routes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: 'cart', component: CartpageComponent },
   { path: 'checkout', component: CheckoutComponentComponent },
   { path: 'orders', component: OrdersComponent },
+  
  
   {
       path: 'dashboard',
@@ -37,7 +39,8 @@ export const routes: Routes = [
             {path: '', component: ManageProductsComponent},
             { path: 'add-products', component: AddproductsComponent },
           ]},
-          { path: 'view-orders', component: ViewordersComponent },
+          
+          { path: 'view-orders', component: SellerOrdersComponent },
           { path: 'profile-settings', component: ProfileSettingsComponent },
           { path: 'add-products', component: AddproductsComponent },
       ],

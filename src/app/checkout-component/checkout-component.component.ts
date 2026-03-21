@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ENDPOINT } from '../endpoint';
 import { FormsModule } from '@angular/forms';
 import PaystackPop from '@paystack/inline-js';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-checkout-component',
@@ -20,6 +21,7 @@ export class CheckoutComponentComponent implements OnInit {
   total = 0;
   address = '';
   loading = false;
+    private _snackBar = inject(MatSnackBar);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -81,7 +83,7 @@ export class CheckoutComponentComponent implements OnInit {
 pay() {
 
   if (!this.address) {
-    alert('Please enter delivery address');
+    this._snackBar.open('Please enter delivery address', 'OK', { duration: 3000 });
     return;
   }
 
@@ -95,14 +97,14 @@ pay() {
     amount: this.total * 100, // Paystack uses kobo
 
     onSuccess: (transaction: any) => {
-      alert('Payment successful! Ref: ' + transaction.reference);
+      this._snackBar.open('Payment successful! Ref: ' + transaction.reference, 'OK', { duration: 5000 });
 
       // 🔥 Save order after payment
       this.placeOrder(transaction.reference);
     },
 
     onCancel: () => {
-      alert('Payment cancelled');
+      this._snackBar.open('Payment cancelled', 'OK', { duration: 3000 });
     }
   });
 }
@@ -120,11 +122,11 @@ placeOrder(reference: string) {
   this.http.post(`${ENDPOINT.baseUrl}/placeorder.php`, payload)
     .subscribe({
       next: () => {
-        alert('Order saved successfully!');
+        this._snackBar.open('Order saved successfully!', 'OK', { duration: 3000 });
         this.router.navigate(['orders']); // or success page
       },
       error: () => {
-        alert('Error saving order');
+        this._snackBar.open('Error saving order', 'OK', { duration: 3000 });
       }
     });
 }

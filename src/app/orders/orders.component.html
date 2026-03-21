@@ -14,7 +14,7 @@
     <div class="card order-card mb-4" *ngFor="let order of orders">
 
       <div class="card-header d-flex justify-content-between">
-        <span><strong>Order #{{ order.order_id }}</strong></span>
+        <span><strong>Date: {{ order.created_at }}</strong></span>
         <span class="badge bg-success">{{ order.status }}</span>
       </div>
 

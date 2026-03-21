@@ -29,12 +29,12 @@
         <h5>Order Summary</h5>
         <div *ngFor="let item of cartItems" class="d-flex justify-content-between mb-2">
           <span>{{ item.product_name }} x{{ item.quantity }}</span>
-          <span>${{ item.product_price * item.quantity }}</span>
+          <span>₦{{ item.product_price * item.quantity }}</span>
         </div>
         <hr>
         <div class="d-flex justify-content-between">
           <strong>Total</strong>
-          <strong>${{ total }}</strong>
+          <strong>₦{{ total }}</strong>
         </div>
       </div>
     </div>

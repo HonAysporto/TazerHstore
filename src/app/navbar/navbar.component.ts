@@ -40,12 +40,9 @@ export class NavbarComponent {
   }
 
   ngOnInit() {
-    
-
     // Subscribe to cart count observable for real-time updates
     this.cartSub = this.cartservice.cartCount$.subscribe(count => {
       this.countno = count;
-    
     });
 
     // Initialize user

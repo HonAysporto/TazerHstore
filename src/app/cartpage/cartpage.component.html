@@ -28,7 +28,7 @@
           <!-- PRODUCT DETAILS -->
           <div class="col-8 col-md-4">
             <h6 class="mb-1 fw-semibold">{{ item.product_name }}</h6>
-            <small class="text-muted">${{ item.product_price | number }}</small>
+            <small class="text-muted">₦{{ item.product_price | number }}</small>
           </div>
 
           <!-- QUANTITY CONTROLS -->
@@ -40,7 +40,7 @@
 
           <!-- TOTAL AND REMOVE -->
           <div class="col-md-2 text-md-end">
-            <strong class="d-block mb-2">${{ item.product_price * item.quantity | number }}</strong>
+            <strong class="d-block mb-2">₦{{ item.product_price * item.quantity | number }}</strong>
             <button class="btn btn-link text-danger p-0" (click)="removeItem(item.cart_id)">Remove</button>
           </div>
 
@@ -56,7 +56,7 @@
         <hr>
         <div class="d-flex justify-content-between mb-2">
           <span>Total</span>
-          <strong>${{ total | number }}</strong>
+          <strong>₦{{ total | number }}</strong>
         </div>
      <button 
   class="btn btn-primary w-100 mt-3"
