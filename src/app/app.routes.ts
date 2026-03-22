@@ -17,6 +17,10 @@ import { customersguardGuard } from './guards/customersguard.guard';
 import { CheckoutComponentComponent } from './checkout-component/checkout-component.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
+import { CustomerForgotPasswordComponent } from './customer-forgot-password/customer-forgot-password.component';
+import { CustomerResetPasswordComponent } from './customer-reset-password/customer-reset-password.component';
+import { SellerForgotPasswordComponent } from './seller-forgot-password/seller-forgot-password.component';
+import { SellerResetPasswordComponent } from './seller-reset-password/seller-reset-password.component';
 
 export const routes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -24,6 +28,10 @@ export const routes: Routes = [
   { path: 'customersignup', component: CustomersignupComponent },
   { path: 'sellersignup', component: SellersignupComponent },
   { path: 'sellerlogin', component: SellerssigninComponent },
+  { path: 'seller-forgot-password', component: SellerForgotPasswordComponent },
+{ path: 'seller-reset-password', component: SellerResetPasswordComponent },
+  { path: 'customer-forgot-password', component: CustomerForgotPasswordComponent },
+{ path: 'customer-reset-password', component: CustomerResetPasswordComponent },
   { path: 'customerprofile', component: CustomerprofileComponent, canActivate:[customersguardGuard] },
   { path: 'cart', component: CartpageComponent },
   { path: 'checkout', component: CheckoutComponentComponent },
