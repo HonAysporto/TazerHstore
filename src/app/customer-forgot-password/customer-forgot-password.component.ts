@@ -14,29 +14,48 @@ import { RouterLink } from '@angular/router';
   styleUrl: './customer-forgot-password.component.css'
 })
 export class CustomerForgotPasswordComponent {
-  
+
   email = '';
-   private _snackBar = inject(MatSnackBar);
+  private _snackBar = inject(MatSnackBar);
 
   constructor(private http: HttpClient) {}
 
   submit() {
     if (!this.email) {
-       this._snackBar.open('Enter your email', 'OK', { duration: 3000 });
+      this._snackBar.open('Enter your email', 'OK', { duration: 3000 });
       return;
     }
 
-    this.http.post<any>(`${ENDPOINT.baseUrl}/forgot-password-customer.php`, {
-      email: this.email
-    }).subscribe(res => {
-      if (res.status) {
-        this._snackBar.open('Reset link sent to your email 📧', 'OK', { duration: 3000 });
-        
-      } else {
-        this._snackBar.open(res.message, 'OK', { duration: 3000 });
+    // ✅ FIX: prevent CORS preflight by NOT using JSON
+    const body = new URLSearchParams();
+    body.set('email', this.email);
 
+    this.http.post<any>(
+      `${ENDPOINT.baseUrl}/forgot-password-customer.php`,
+      body.toString(),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    ).subscribe({
+      next: (res) => {
+        if (res.status) {
+          this._snackBar.open('Reset link sent to your email 📧', 'OK', {
+            duration: 3000
+          });
+        } else {
+          this._snackBar.open(res.message || 'Something went wrong', 'OK', {
+            duration: 3000
+          });
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        this._snackBar.open('Server error. Try again later.', 'OK', {
+          duration: 3000
+        });
       }
     });
   }
-
 }
