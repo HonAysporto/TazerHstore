@@ -5,11 +5,12 @@ import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CartService } from '../services/cart.service';
 import { ENDPOINT } from '../endpoint';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-cartpage',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, RouterLink],
+  imports: [CommonModule, NavbarComponent, RouterLink, FooterComponent],
   templateUrl: './cartpage.component.html',
   styleUrl: './cartpage.component.css'
 })

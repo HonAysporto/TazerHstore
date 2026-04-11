@@ -6,11 +6,12 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CartService } from '../services/cart.service';
 import { ENDPOINT } from '../endpoint';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-productdetails-page',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './productdetails-page.component.html',
   styleUrls: ['./productdetails-page.component.css'] // fixed typo
 })

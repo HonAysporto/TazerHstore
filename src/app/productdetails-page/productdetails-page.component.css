@@ -124,6 +124,10 @@
   pointer-events: none;
 }
 
+.space {
+  margin-bottom: 50px;
+}
+
 .skeleton-img {
   height: 160px;
   width: 100%;

@@ -3,7 +3,7 @@
 <app-navbar [showSearch]="false"></app-navbar>
 
   <!-- PRODUCT SECTION -->
-  <div class="container product-section mt-5" *ngIf="product; else noProduct">
+  <div class="container product-section mt-5 " *ngIf="product; else noProduct">
 
     <div class="row align-items-center gy-5 reveal">
 
@@ -109,7 +109,7 @@
 
   <!-- FALLBACK -->
   <ng-template #noProduct>
-    <div class="text-center mt-5">
+    <div class="text-center mt-5 space">
       <h2>No Product Found</h2>
       <p class="text-muted">We couldn’t find the product you were looking for.</p>
       <a routerLink="/" class="btn btn-outline-primary mt-3">Back to Home</a>
@@ -117,3 +117,6 @@
   </ng-template>
 
 </div>
+
+
+<app-footer></app-footer>

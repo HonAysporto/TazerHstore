@@ -6,11 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { isPlatformBrowser } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ENDPOINT } from '../endpoint';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-customerprofile',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './customerprofile.component.html',
   styleUrl: './customerprofile.component.css'
 })

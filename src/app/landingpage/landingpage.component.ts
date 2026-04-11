@@ -7,11 +7,12 @@ import { ProductService } from '../product.service';
 import { SearchService } from '../services/search.service';
 import { Subscription } from 'rxjs';
 import { ENDPOINT } from '../endpoint';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-landingpage',
   standalone: true,
-  imports: [CommonModule, RouterLink, NavbarComponent],
+  imports: [CommonModule, RouterLink, NavbarComponent, FooterComponent],
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css']
 })

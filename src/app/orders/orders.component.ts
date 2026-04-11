@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { ENDPOINT } from '../endpoint';
 import { Navbar2Component } from '../navbar2/navbar2.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })

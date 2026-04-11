@@ -17,13 +17,13 @@ export class AuthserviceService {
 
   }
 
-  // ✅ Existing login (keep it)
+  //  Existing login (keep it)
   login(userData: any) {
     this.user = userData;
     sessionStorage.setItem('user', JSON.stringify(userData));
   }
 
-  // 🔥 NEW: Google Login
+  //  NEW: Google Login
   async loginWithGoogle() {
     try {
       const result = await signInWithPopup(this.auth, this.provider);
