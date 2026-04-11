@@ -60,7 +60,7 @@
               <img [src]="product.image" alt="{{ product.productname }}" class="product-image" />
             </td>
             <td>{{ product.productname }}</td>
-            <td>{{ product.price | currency }}</td>
+            <td>₦{{ product.price  }}</td>
             <td>{{ product.quantity }}</td>
             <td>
               <button (click)="edit(product)" class="btn btn-edit" [disabled]="isDeleting[i]">Edit</button>
